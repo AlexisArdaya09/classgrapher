@@ -10,6 +10,6 @@ public class LogicBoard {
   private List<Connector> connectors = new ArrayList<>(0);
 
   public void addConnector(Connector connector) {
-    connectors.add(connector);
+    this.connectors.add(connector);
   }
 }

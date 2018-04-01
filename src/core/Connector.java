@@ -7,9 +7,9 @@ import entities.Relation;
  * Created by David on 31/03/2018.
  */
 public class Connector {
-  private BaseClass classA;
-  private BaseClass classB;
-  private Relation relation;
+  private final BaseClass classA;
+  private final BaseClass classB;
+  private final Relation relation;
 
   public Connector(BaseClass classA, BaseClass classB, Relation relation) {
     this.classA = classA;

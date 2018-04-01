@@ -1,5 +1,5 @@
 import core.LogicBoard;
-import core.Shape;
+import ui.shapes.Shape;
 
 import java.util.ArrayList;
 import java.util.List;

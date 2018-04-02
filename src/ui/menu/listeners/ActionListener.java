@@ -3,7 +3,7 @@ package ui.menu.listeners;
 import java.awt.event.ActionEvent;
 
 /**
- * Description.
+ * Action Listener.
  *
  * @author David
  * @since 01/04/2018

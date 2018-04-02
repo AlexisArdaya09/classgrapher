@@ -9,7 +9,7 @@ import javax.swing.*;
 import ui.shapes.Shape;
 
 /**
- * Description.
+ * Canvas.
  *
  * @author David
  * @since 31/03/2018

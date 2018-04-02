@@ -5,7 +5,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 /**
- * Description.
+ * Canvas Listener.
  *
  * @author David
  * @since 31/03/2018

@@ -6,7 +6,7 @@ import javax.swing.*;
 import ui.menu.listeners.ActionListener;
 
 /**
- * Description.
+ * ToolBar.
  *
  * @author David
  * @since 01/04/2018

@@ -5,7 +5,7 @@ import javax.swing.*;
 import ui.menu.listeners.ActionListener;
 
 /**
- * Description.
+ * MenuBar.
  *
  * @author David
  * @since 01/04/2018

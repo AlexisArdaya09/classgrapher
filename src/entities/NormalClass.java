@@ -9,7 +9,8 @@ import ui.shapes.Shape;
  */
 public class NormalClass extends BaseClass implements Shape {
 
-  public NormalClass(Point pointOne, Point pointTwo) {
+  public NormalClass(String title, Point pointOne, Point pointTwo) {
+    this.title = title;
     this.pointOne = pointOne;
     this.pointTwo = pointTwo;
   }

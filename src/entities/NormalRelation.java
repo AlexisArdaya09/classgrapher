@@ -1,8 +1,7 @@
 package entities;
 
-import core.*;
-import java.awt.*;
-import java.awt.Point;
+import core.Point;
+import java.awt.Graphics;
 import ui.shapes.Shape;
 
 /**
@@ -10,7 +9,7 @@ import ui.shapes.Shape;
  */
 public class NormalRelation extends Relation implements Shape {
 
-  public NormalRelation(core.Point pointOne, core.Point pointTwo) {
+  public NormalRelation(Point pointOne, Point pointTwo) {
     this.pointOne = pointOne;
     this.pointTwo = pointTwo;
   }

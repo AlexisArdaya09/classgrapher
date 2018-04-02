@@ -1,6 +1,6 @@
 package ui.shapes;
 
-import java.awt.*;
+import java.awt.Graphics;
 
 /**
  * Created by David on 31/03/2018.

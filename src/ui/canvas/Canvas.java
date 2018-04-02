@@ -1,9 +1,7 @@
 package ui.canvas;
 
 import core.LogicBoard;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,17 +15,25 @@ import ui.shapes.Shape;
  * @since 31/03/2018
  */
 public class Canvas extends JPanel {
-  private final List<Shape> shapes;
+  public List<Shape> shapes;
   private final LogicBoard logicBoard;
 
   public Canvas() {
     this.shapes = new ArrayList<>(0);
     this.logicBoard = new LogicBoard();
+    this.addListeners();
   }
 
   public Canvas(List<Shape> shapes, LogicBoard logicBoard) {
     this.shapes = shapes;
     this.logicBoard = logicBoard;
+    this.addListeners();
+  }
+
+  private void addListeners() {
+    CanvasListener canvasListener = new CanvasListener(this);
+    addMouseListener(canvasListener);
+    addMouseMotionListener(canvasListener);
   }
 
   public void paint(Graphics graphics) {

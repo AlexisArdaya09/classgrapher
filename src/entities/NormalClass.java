@@ -8,8 +8,6 @@ import ui.shapes.Shape;
  * Created by David on 31/03/2018.
  */
 public class NormalClass extends BaseClass implements Shape {
-  private Point pointOne;
-  private Point pointTwo;
 
   public NormalClass(Point pointOne, Point pointTwo) {
     this.pointOne = pointOne;

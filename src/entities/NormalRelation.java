@@ -10,8 +10,10 @@ import ui.shapes.Shape;
  */
 public class NormalRelation extends Relation implements Shape {
 
-  private core.Point pointOne;
-  private core.Point pointTwo;
+  public NormalRelation(core.Point pointOne, core.Point pointTwo) {
+    this.pointOne = pointOne;
+    this.pointTwo = pointTwo;
+  }
 
   @Override
   public void draw(Graphics graphics) {

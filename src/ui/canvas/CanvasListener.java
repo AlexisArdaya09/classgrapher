@@ -5,6 +5,8 @@ import entities.NormalClass;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Optional;
+import ui.shapes.Shape;
 
 /**
  * Canvas Listener.
@@ -14,7 +16,7 @@ import java.awt.event.MouseMotionListener;
  */
 public class CanvasListener implements MouseListener, MouseMotionListener {
   private Canvas canvas;
-
+  private Optional<Shape> currentShape;
   public CanvasListener(Canvas canvas) {
     this.canvas = canvas;
   }
@@ -23,13 +25,21 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
   @Override
   public void mouseClicked(MouseEvent e) {
     java.awt.Point p = e.getPoint();
-    canvas.shapes.add(new NormalClass("test", new Point(p.x, p.y)));
-    canvas.repaint();
+
+    currentShape = canvas.getShape(new Point(p.x, p.y));
+    if (!currentShape.isPresent()) {
+      canvas.shapes.add(new NormalClass("test", new Point(p.x, p.y)));
+      canvas.repaint();
+    }
   }
 
   @Override
   public void mousePressed(MouseEvent e) {
-
+    java.awt.Point p = e.getPoint();
+//    currentShape.ifPresent(shape -> {
+//      shape.newPoint(new Point(p.x, p.y));
+//      canvas.shapes.stream().indexOf(shape)
+//    });
   }
 
   @Override

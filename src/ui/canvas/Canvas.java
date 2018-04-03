@@ -1,8 +1,8 @@
 package ui.canvas;
 
 import core.LogicBoard;
+import core.Point;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.swing.*;
@@ -17,12 +17,6 @@ import ui.shapes.Shape;
 public class Canvas extends JPanel {
   public List<Shape> shapes;
   private final LogicBoard logicBoard;
-
-  public Canvas() {
-    this.shapes = new ArrayList<>(0);
-    this.logicBoard = new LogicBoard();
-    this.addListeners();
-  }
 
   public Canvas(List<Shape> shapes, LogicBoard logicBoard) {
     this.shapes = shapes;
@@ -49,4 +43,11 @@ public class Canvas extends JPanel {
     this.shapes.clear();
     repaint();
   }
+
+  public Optional<Shape> getShape(Point point) {
+    return shapes.stream().filter(shape ->
+        shape.getShapeInCoordinate(point).isPresent()).findFirst();
+  }
+
+
 }

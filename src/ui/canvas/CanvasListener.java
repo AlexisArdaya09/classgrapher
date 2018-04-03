@@ -2,11 +2,13 @@ package ui.canvas;
 
 import core.Point;
 import entities.NormalClass;
+import ui.shapes.Shape;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Optional;
-import ui.shapes.Shape;
+import java.util.stream.Collectors;
 
 /**
  * Canvas Listener.
@@ -17,6 +19,7 @@ import ui.shapes.Shape;
 public class CanvasListener implements MouseListener, MouseMotionListener {
   private Canvas canvas;
   private Optional<Shape> currentShape;
+
   public CanvasListener(Canvas canvas) {
     this.canvas = canvas;
   }
@@ -36,10 +39,11 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
   @Override
   public void mousePressed(MouseEvent e) {
     java.awt.Point p = e.getPoint();
-//    currentShape.ifPresent(shape -> {
-//      shape.newPoint(new Point(p.x, p.y));
-//      canvas.shapes.stream().indexOf(shape)
-//    });
+    currentShape = canvas.getShape(new Point(p.x, p.y));
+    if (!currentShape.isPresent()) {
+      canvas.shapes.add(new NormalClass("test", new Point(p.x, p.y)));
+      canvas.repaint();
+    }
   }
 
   @Override
@@ -59,7 +63,17 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
 
   @Override
   public void mouseDragged(MouseEvent e) {
-
+    java.awt.Point p = e.getPoint();
+    currentShape.ifPresent(shape -> {
+      canvas.shapes = canvas.shapes.stream().map(s -> {
+        if (s.getId().equals(shape.getId())) {
+          s.newPoint(new Point(p.x, p.y));
+          return s;
+        }
+        return s;
+      }).collect(Collectors.toList());
+    });
+    canvas.repaint();
   }
 
   @Override

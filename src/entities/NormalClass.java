@@ -1,10 +1,11 @@
 package entities;
 
 import core.Point;
-import java.awt.Graphics;
+import ui.shapes.Shape;
+
+import java.awt.*;
 import java.util.Optional;
 import java.util.UUID;
-import ui.shapes.Shape;
 
 /**
  * Created by David on 31/03/2018.
@@ -31,7 +32,7 @@ public class NormalClass implements Shape, BaseClass {
 
   @Override
   public String getId() {
-    return this.getId();
+    return this.id;
   }
 
   @Override
@@ -53,7 +54,7 @@ public class NormalClass implements Shape, BaseClass {
     int w = Math.abs(pointOne.x - pointTwo.x) + 1;
     int h = Math.abs(pointOne.y - pointTwo.y) + 1;
 
-    return point.x >= x && point.x <= w && point.y >= y && point.y <= h
+    return point.x >= x && point.x <= x + w && point.y >= y && point.y <= y + h
         ? Optional.of(this) : Optional.empty() ;
   }
 

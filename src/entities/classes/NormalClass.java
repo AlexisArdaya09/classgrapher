@@ -1,4 +1,4 @@
-package entities;
+package entities.classes;
 
 import core.Point;
 import ui.shapes.Shape;

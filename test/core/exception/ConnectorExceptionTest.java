@@ -2,8 +2,8 @@ package core.exception;
 
 import core.Connector;
 import core.Point;
-import entities.NormalClass;
-import entities.NormalRelation;
+import entities.classes.NormalClass;
+import entities.relations.NormalRelation;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,8 +1,8 @@
 package core;
 
 import core.exception.ConnectorException;
-import entities.BaseClass;
-import entities.Relation;
+import entities.classes.BaseClass;
+import entities.relations.Relation;
 import java.util.Optional;
 
 /**

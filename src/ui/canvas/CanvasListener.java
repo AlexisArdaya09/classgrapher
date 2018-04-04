@@ -4,8 +4,9 @@ import core.Connector;
 import core.Point;
 import core.Tool;
 import core.exception.ConnectorException;
-import entities.NormalClass;
-import entities.NormalRelation;
+import entities.classes.NormalClass;
+import entities.relations.InheritRelation;
+import entities.relations.NormalRelation;
 import ui.shapes.Shape;
 
 import java.awt.event.MouseEvent;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 public class CanvasListener implements MouseListener, MouseMotionListener {
   private Canvas canvas;
   private Optional<Shape> currentShape = Optional.empty();
+  private Tool currentRelation = Tool.RELATION;
   private int selection = 0;
 
   public CanvasListener(Canvas canvas) {
@@ -38,8 +40,9 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
   public void mousePressed(MouseEvent e) {
     java.awt.Point p = e.getPoint();
 
-    if (canvas.currentTool == Tool.RELATION) {
+    if (canvas.currentTool == Tool.RELATION || canvas.currentTool == Tool.INHERIT_RELATION) {
       if (selection == 0) {
+        currentRelation = canvas.currentTool;
         canvas.getShape(new Point(p.x, p.y)).ifPresent(shape -> {
           currentShape = Optional.of(shape);
           selection++;
@@ -49,9 +52,16 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
       if (selection == 1) {
         canvas.getShape(new Point(p.x, p.y)).ifPresent(shape -> {
           try {
-            Connector connector = new Connector(
-                (NormalClass) currentShape.get(),
-                (NormalClass) shape, new NormalRelation());
+            Connector connector;
+            if (currentRelation == Tool.RELATION) {
+              connector = new Connector(
+                  (NormalClass) currentShape.get(),
+                  (NormalClass) shape, new NormalRelation());
+            } else {
+              connector = new Connector(
+                  (NormalClass) currentShape.get(),
+                  (NormalClass) shape, new InheritRelation());
+            }
             canvas.logicBoard.addConnector(connector);
             canvas.shapes.add((Shape) connector.getRelation());
           } catch (ConnectorException e1) {
@@ -76,7 +86,7 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
 
   @Override
   public void mouseReleased(MouseEvent e) {
-    if (canvas.currentTool != Tool.RELATION) {
+    if (canvas.currentTool != Tool.RELATION && canvas.currentTool != Tool.INHERIT_RELATION) {
       currentShape = Optional.empty();
     }
   }

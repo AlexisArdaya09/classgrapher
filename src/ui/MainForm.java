@@ -84,8 +84,9 @@ public class MainForm extends JFrame {
         ToolBar.getButton("Relation",
             e -> canvas.currentTool = canvas.currentTool == Tool.RELATION
                 ? Tool.ANY : Tool.RELATION),
-        ToolBar.getButton("Undo", e -> {
-        })
+        ToolBar.getButton("Inherit Relation",
+            e -> canvas.currentTool = canvas.currentTool == Tool.INHERIT_RELATION
+                ? Tool.ANY : Tool.INHERIT_RELATION)
     ));
   }
 }

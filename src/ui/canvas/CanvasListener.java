@@ -53,9 +53,11 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
                 (NormalClass) currentShape.get(),
                 (NormalClass) shape, new NormalRelation());
             canvas.logicBoard.addConnector(connector);
+            canvas.shapes.add((Shape) connector.getRelation());
           } catch (ConnectorException e1) {
             e1.printStackTrace();
           }
+
           selection = 0;
           canvas.currentTool = Tool.ANY;
           canvas.repaint();

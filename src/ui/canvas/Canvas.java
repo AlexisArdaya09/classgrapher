@@ -4,10 +4,14 @@ import core.LogicBoard;
 import core.Point;
 import core.Tool;
 import entities.BaseClass;
-import java.awt.*;
+import entities.Relation;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.util.List;
 import java.util.Optional;
-import javax.swing.*;
+import java.util.stream.Collectors;
+import javax.swing.JPanel;
 import ui.shapes.Shape;
 
 /**
@@ -39,7 +43,8 @@ public class Canvas extends JPanel {
     graphics.setColor(Color.white);
     graphics.fillRect(0, 0, dimension.width, dimension.height);
     graphics.setColor(Color.black);
-    shapes.stream().filter(v -> Optional.ofNullable(v).isPresent())
+    shapes.stream().filter(v -> Optional.ofNullable(v).isPresent()
+    && !v.getClass().isInstance(Relation.class))
         .forEach(shape -> shape.draw(graphics));
     logicBoard.connectors.forEach(connector -> {
       BaseClass baseClassA = shapes.stream().filter(s -> s.getId().equals(((Shape) connector
@@ -74,5 +79,13 @@ public class Canvas extends JPanel {
         shape.getShapeInCoordinate(point).isPresent()).findFirst();
   }
 
-
+  public void undo() {
+    if (shapes.size() > 0){
+      logicBoard.connectors = logicBoard.connectors.stream()
+          .filter(c -> !((Shape) c.getRelation()).getId().equals(shapes.get(shapes.size() - 1).getId()))
+          .map(c -> c).collect(Collectors.toList());
+      shapes.remove(shapes.size() - 1);
+      repaint();
+    }
+  }
 }

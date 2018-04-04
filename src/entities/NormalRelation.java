@@ -1,6 +1,7 @@
 package entities;
 
 import core.Point;
+import java.util.UUID;
 import ui.shapes.Shape;
 
 import java.awt.*;
@@ -10,8 +11,10 @@ import java.util.Optional;
  * Created by David on 31/03/2018.
  */
 public class NormalRelation implements Relation, Shape {
-  protected Point pointOne;
-  protected Point pointTwo;
+
+  private String id = UUID.randomUUID().toString();
+  private Point pointOne;
+  private Point pointTwo;
 
   public NormalRelation() {
     this.pointOne = new Point(0,0);
@@ -25,7 +28,7 @@ public class NormalRelation implements Relation, Shape {
 
   @Override
   public String getId() {
-    return null;
+    return this.id;
   }
 
   @Override
@@ -35,7 +38,7 @@ public class NormalRelation implements Relation, Shape {
 
   @Override
   public Optional<Shape> getShapeInCoordinate(Point point) {
-    return null;
+    return Optional.empty();
   }
 
   @Override

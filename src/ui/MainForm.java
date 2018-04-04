@@ -66,10 +66,9 @@ public class MainForm extends JFrame {
                 })
             )
         ),
-        MenuBar.getMenu("Tools",
+        MenuBar.getMenu("Edit",
             Arrays.asList(
-                MenuBar.getMenuItem("Nuevo", e -> {
-                }),
+                MenuBar.getMenuItem("Undo", e -> canvas.undo()),
                 MenuBar.getMenuItem("Editar", e -> {
                 })
             )

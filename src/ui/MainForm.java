@@ -1,20 +1,17 @@
 package ui;
 
 import core.LogicBoard;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.HeadlessException;
-import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
+import core.Tool;
 import ui.canvas.Canvas;
 import ui.menu.menubar.MenuBar;
 import ui.menu.toolbar.ToolBar;
 import ui.shapes.Shape;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Main Form.
@@ -29,6 +26,7 @@ public class MainForm extends JFrame {
   private JMenuBar menuBar;
   private JComponent toolbar;
   private Canvas canvas;
+  private Tool currentTool;
 
   private LogicBoard logicBoard;
   private List<Shape> shapes = new ArrayList<>(0);
@@ -47,7 +45,8 @@ public class MainForm extends JFrame {
     this.logicBoard = new LogicBoard();
     this.menuBar = this.createMenuBar();
     this.toolbar = this.createToolBar();
-    this.canvas = new Canvas(shapes, logicBoard);
+    this.currentTool = Tool.ANY;
+    this.canvas = new Canvas(shapes, logicBoard, currentTool);
     this.initForm();
   }
 
@@ -80,9 +79,11 @@ public class MainForm extends JFrame {
 
   private JComponent createToolBar() {
     return ToolBar.getToolBar(Arrays.asList(
-        ToolBar.getButton("Class", e -> {}),
-        ToolBar.getButton("Abstract Class", e -> {}),
-        ToolBar.getButton("Interface", e -> {})
+        ToolBar.getButton("Class",
+            e -> canvas.currentTool = canvas.currentTool == Tool.CLASS
+            ? Tool.ANY : Tool.CLASS),
+        ToolBar.getButton("Relation", e -> {}),
+        ToolBar.getButton("Undo", e -> {})
     ));
   }
 }

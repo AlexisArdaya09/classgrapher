@@ -2,11 +2,13 @@ package ui.canvas;
 
 import core.LogicBoard;
 import core.Point;
+import core.Tool;
+import ui.shapes.Shape;
+
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.Optional;
-import javax.swing.*;
-import ui.shapes.Shape;
 
 /**
  * Canvas.
@@ -17,10 +19,12 @@ import ui.shapes.Shape;
 public class Canvas extends JPanel {
   public List<Shape> shapes;
   private final LogicBoard logicBoard;
+  public Tool currentTool;
 
-  public Canvas(List<Shape> shapes, LogicBoard logicBoard) {
+  public Canvas(List<Shape> shapes, LogicBoard logicBoard, Tool currentTool) {
     this.shapes = shapes;
     this.logicBoard = logicBoard;
+    this.currentTool = currentTool;
     this.addListeners();
   }
 

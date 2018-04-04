@@ -1,6 +1,7 @@
 package ui.canvas;
 
 import core.Point;
+import core.Tool;
 import entities.NormalClass;
 import ui.shapes.Shape;
 
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
  */
 public class CanvasListener implements MouseListener, MouseMotionListener {
   private Canvas canvas;
-  private Optional<Shape> currentShape;
+  private Optional<Shape> currentShape = Optional.empty();
 
   public CanvasListener(Canvas canvas) {
     this.canvas = canvas;
@@ -27,6 +28,9 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
 
   @Override
   public void mouseClicked(MouseEvent e) {
+    if (canvas.currentTool == Tool.ANY) {
+      return;
+    }
     java.awt.Point p = e.getPoint();
 
     currentShape = canvas.getShape(new Point(p.x, p.y));
@@ -38,12 +42,7 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
 
   @Override
   public void mousePressed(MouseEvent e) {
-    java.awt.Point p = e.getPoint();
-    currentShape = canvas.getShape(new Point(p.x, p.y));
-    if (!currentShape.isPresent()) {
-      canvas.shapes.add(new NormalClass("test", new Point(p.x, p.y)));
-      canvas.repaint();
-    }
+
   }
 
   @Override

@@ -59,9 +59,17 @@ public class NormalClass implements Shape, BaseClass {
   }
 
   @Override
-  public void newPoint(Point point) {
+  public Shape addPoint(Point point) {
     this.pointOne = point;
     this.pointTwo = new Point(pointOne.x + DEFAULT_WIDTH, pointOne.y + DEFAULT_HIGH);
+    return this;
+  }
+
+  @Override
+  public Shape addPoints(Point pointOne, Point pointTwo) {
+    this.pointOne = pointOne;
+    this.pointTwo = pointTwo;
+    return this;
   }
 
   @Override

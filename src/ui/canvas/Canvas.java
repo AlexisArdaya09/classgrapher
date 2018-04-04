@@ -3,12 +3,12 @@ package ui.canvas;
 import core.LogicBoard;
 import core.Point;
 import core.Tool;
-import ui.shapes.Shape;
-
-import javax.swing.*;
+import entities.BaseClass;
 import java.awt.*;
 import java.util.List;
 import java.util.Optional;
+import javax.swing.*;
+import ui.shapes.Shape;
 
 /**
  * Canvas.
@@ -42,7 +42,25 @@ public class Canvas extends JPanel {
     shapes.stream().filter(v -> Optional.ofNullable(v).isPresent())
         .forEach(shape -> shape.draw(graphics));
     logicBoard.connectors.forEach(connector -> {
+      BaseClass baseClassA = shapes.stream().filter(s -> s.getId().equals(((Shape) connector
+          .getClassA())
+          .getId())).map(s -> (BaseClass) s).findFirst().get();
 
+      BaseClass baseClassB = shapes.stream().filter(s -> s.getId().equals(((Shape) connector
+          .getClassB())
+          .getId())).map(s -> (BaseClass) s).findFirst().get();
+
+      int x1 = baseClassA.getPointOne().x
+          + ((Math.abs(baseClassA.getPointTwo().x - baseClassA.getPointOne().x)) / 2);
+      int y1 = baseClassA.getPointOne().y;
+
+      int x2 = baseClassB.getPointOne().x
+          + ((Math.abs(baseClassB.getPointTwo().x - baseClassB.getPointOne().x)) / 2);
+      int y2 = baseClassB.getPointOne().y;
+
+
+      ((Shape) connector.getRelation())
+          .addPoints(new Point(x1, y1), new Point(x2, y2)).draw(graphics);
     });
   }
 

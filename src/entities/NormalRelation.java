@@ -9,7 +9,9 @@ import java.util.Optional;
 /**
  * Created by David on 31/03/2018.
  */
-public class NormalRelation extends Relation implements Shape {
+public class NormalRelation implements Relation, Shape {
+  protected Point pointOne;
+  protected Point pointTwo;
 
   public NormalRelation() {
     this.pointOne = new Point(0,0);
@@ -37,7 +39,15 @@ public class NormalRelation extends Relation implements Shape {
   }
 
   @Override
-  public void newPoint(Point point) {
+  public Shape addPoint(Point point) {
+    this.pointOne = point;
+    return this;
+  }
 
+  @Override
+  public Shape addPoints(Point pointOne, Point pointTwo) {
+    this.pointOne = pointOne;
+    this.pointTwo = pointTwo;
+    return this;
   }
 }

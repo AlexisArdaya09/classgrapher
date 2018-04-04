@@ -96,7 +96,7 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
     currentShape.ifPresent(shape -> {
       canvas.shapes = canvas.shapes.stream().map(s -> {
         if (s.getId().equals(shape.getId())) {
-          s.newPoint(new Point(p.x, p.y));
+          s.addPoint(new Point(p.x, p.y));
           return s;
         }
         return s;

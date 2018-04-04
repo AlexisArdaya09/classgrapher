@@ -9,9 +9,9 @@ import java.util.Optional;
  * Created by David on 31/03/2018.
  */
 public class Connector {
-  private final BaseClass classA;
-  private final BaseClass classB;
-  private final Relation relation;
+  private BaseClass classA;
+  private BaseClass classB;
+  private Relation relation;
 
   public Connector(BaseClass classA, BaseClass classB, Relation relation) throws ConnectorException {
     if (!Optional.ofNullable(classA).isPresent()

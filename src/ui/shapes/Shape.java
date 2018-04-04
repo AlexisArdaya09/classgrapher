@@ -14,5 +14,7 @@ public interface Shape {
 
   Optional<Shape> getShapeInCoordinate(Point point);
 
-  void newPoint(Point point);
+  Shape addPoint(Point point);
+
+  Shape addPoints(Point pointOne, Point pointTwo);
 }

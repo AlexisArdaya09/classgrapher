@@ -31,9 +31,11 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
 
   @Override
   public void mouseClicked(MouseEvent e) {
-    if (canvas.currentTool == Tool.ANY) {
-      return;
-    }
+
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e) {
     java.awt.Point p = e.getPoint();
 
     if (canvas.currentTool == Tool.RELATION) {
@@ -71,13 +73,10 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
   }
 
   @Override
-  public void mousePressed(MouseEvent e) {
-
-  }
-
-  @Override
   public void mouseReleased(MouseEvent e) {
-
+    if (canvas.currentTool != Tool.RELATION) {
+      currentShape = Optional.empty();
+    }
   }
 
   @Override

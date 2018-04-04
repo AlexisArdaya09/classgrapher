@@ -4,6 +4,8 @@ import core.Connector;
 import core.Point;
 import core.Tool;
 import core.exception.ConnectorException;
+import entities.classes.AbstractClass;
+import entities.classes.BaseClass;
 import entities.classes.NormalClass;
 import entities.relations.InheritRelation;
 import entities.relations.NormalRelation;
@@ -55,12 +57,12 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
             Connector connector;
             if (currentRelation == Tool.RELATION) {
               connector = new Connector(
-                  (NormalClass) currentShape.get(),
-                  (NormalClass) shape, new NormalRelation());
+                  (BaseClass) currentShape.get(),
+                  (BaseClass) shape, new NormalRelation());
             } else {
               connector = new Connector(
-                  (NormalClass) currentShape.get(),
-                  (NormalClass) shape, new InheritRelation());
+                  (BaseClass) currentShape.get(),
+                  (BaseClass) shape, new InheritRelation());
             }
             canvas.logicBoard.addConnector(connector);
             canvas.shapes.add((Shape) connector.getRelation());
@@ -80,6 +82,11 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
     currentShape = canvas.getShape(new Point(p.x, p.y));
     if (!currentShape.isPresent() && canvas.currentTool == Tool.CLASS) {
       canvas.shapes.add(new NormalClass("test", new Point(p.x, p.y)));
+      canvas.repaint();
+    }
+
+    if (!currentShape.isPresent() && canvas.currentTool == Tool.ABSTRACT_CLASS) {
+      canvas.shapes.add(new AbstractClass("test", new Point(p.x, p.y)));
       canvas.repaint();
     }
   }

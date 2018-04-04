@@ -1,16 +1,15 @@
 package entities.classes;
 
 import core.Point;
-import ui.shapes.Shape;
-
 import java.awt.*;
 import java.util.Optional;
 import java.util.UUID;
+import ui.shapes.Shape;
 
 /**
  * Created by David on 31/03/2018.
  */
-public class NormalClass implements Shape, BaseClass {
+public class AbstractClass implements Shape, BaseClass {
 
   private String id = UUID.randomUUID().toString();
   private String title;
@@ -18,13 +17,13 @@ public class NormalClass implements Shape, BaseClass {
   private Point pointTwo;
 
 
-  public NormalClass(String title, Point pointOne, Point pointTwo) {
+  public AbstractClass(String title, Point pointOne, Point pointTwo) {
     this.title = title;
     this.pointOne = pointOne;
     this.pointTwo = pointTwo;
   }
 
-  public NormalClass(String title, Point pointOne) {
+  public AbstractClass(String title, Point pointOne) {
     this.title = title;
     this.pointOne = pointOne;
     this.pointTwo = new Point(pointOne.x + DEFAULT_WIDTH, pointOne.y + DEFAULT_HIGH);
@@ -49,7 +48,20 @@ public class NormalClass implements Shape, BaseClass {
     graphics.drawString(title,
         x + (w/2) - 20 ,
         y + (h/2) + 5);
-  }
+
+    x = x + w - 25;
+    y = y - 10;
+    w = 20;
+    h = 20;
+
+    graphics.setColor(Color.white);
+    graphics.fillRect(x, y, w, h);
+    graphics.setColor(Color.black);
+    graphics.drawRect(x, y, w, h);
+    graphics.drawString("A",
+        x + (w/2) - 3,
+        y + (h/2) + 5);
+}
 
   @Override
   public Optional<Shape> getShapeInCoordinate(Point point) {

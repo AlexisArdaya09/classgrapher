@@ -11,6 +11,11 @@ import java.util.Optional;
  */
 public class NormalRelation extends Relation implements Shape {
 
+  public NormalRelation() {
+    this.pointOne = new Point(0,0);
+    this.pointTwo = new Point(0,0);
+  }
+
   public NormalRelation(Point pointOne, Point pointTwo) {
     this.pointOne = pointOne;
     this.pointTwo = pointTwo;

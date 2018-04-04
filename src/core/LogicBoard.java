@@ -7,7 +7,7 @@ import java.util.List;
  * Created by David on 31/03/2018.
  */
 public class LogicBoard {
-  private List<Connector> connectors = new ArrayList<>(0);
+  public List<Connector> connectors = new ArrayList<>(0);
 
   public void addConnector(Connector connector) {
     this.connectors.add(connector);

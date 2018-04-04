@@ -31,15 +31,6 @@ public class MainForm extends JFrame {
   private LogicBoard logicBoard;
   private List<Shape> shapes = new ArrayList<>(0);
 
-  public static void main(String[] args) {
-    JFrame frame = new MainForm("Class Grapher");
-    frame.setSize(width, height);
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    frame.setLocation(screenSize.width / 2 - width / 2,
-        screenSize.height / 2 - height / 2);
-    frame.show();
-  }
-
   public MainForm(String title) throws HeadlessException {
     super(title);
     this.logicBoard = new LogicBoard();
@@ -48,6 +39,15 @@ public class MainForm extends JFrame {
     this.currentTool = Tool.ANY;
     this.canvas = new Canvas(shapes, logicBoard, currentTool);
     this.initForm();
+  }
+
+  public static void main(String[] args) {
+    JFrame frame = new MainForm("Class Grapher");
+    frame.setSize(width, height);
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    frame.setLocation(screenSize.width / 2 - width / 2,
+        screenSize.height / 2 - height / 2);
+    frame.show();
   }
 
   private void initForm() {
@@ -81,9 +81,12 @@ public class MainForm extends JFrame {
     return ToolBar.getToolBar(Arrays.asList(
         ToolBar.getButton("Class",
             e -> canvas.currentTool = canvas.currentTool == Tool.CLASS
-            ? Tool.ANY : Tool.CLASS),
-        ToolBar.getButton("Relation", e -> {}),
-        ToolBar.getButton("Undo", e -> {})
+                ? Tool.ANY : Tool.CLASS),
+        ToolBar.getButton("Relation",
+            e -> canvas.currentTool = canvas.currentTool == Tool.RELATION
+                ? Tool.ANY : Tool.RELATION),
+        ToolBar.getButton("Undo", e -> {
+        })
     ));
   }
 }

@@ -18,7 +18,7 @@ import java.util.Optional;
  */
 public class Canvas extends JPanel {
   public List<Shape> shapes;
-  private final LogicBoard logicBoard;
+  public LogicBoard logicBoard;
   public Tool currentTool;
 
   public Canvas(List<Shape> shapes, LogicBoard logicBoard, Tool currentTool) {
@@ -41,6 +41,9 @@ public class Canvas extends JPanel {
     graphics.setColor(Color.black);
     shapes.stream().filter(v -> Optional.ofNullable(v).isPresent())
         .forEach(shape -> shape.draw(graphics));
+    logicBoard.connectors.forEach(connector -> {
+
+    });
   }
 
   public void clean() {

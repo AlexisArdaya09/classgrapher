@@ -1,7 +1,7 @@
 package ui.shapes;
 
 import core.Point;
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.Optional;
 
 /**
@@ -14,7 +14,7 @@ public interface Shape {
 
   Optional<Shape> getShapeInCoordinate(Point point);
 
-  Shape addPoint(Point point);
+  void addPoint(Point point);
 
   Shape addPoints(Point pointOne, Point pointTwo);
 }

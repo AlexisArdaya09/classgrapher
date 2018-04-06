@@ -66,8 +66,7 @@ public class Canvas extends JPanel {
       int y2 = baseClassB.getPointOne().y;
 
 
-      ((Shape) connector.getRelation())
-          .addPoints(new Point(x1, y1), new Point(x2, y2)).draw(graphics);
+      ((Shape) connector.getRelation()).addPoints(new Point(x1, y1), new Point(x2, y2)).draw(graphics);
     });
   }
 

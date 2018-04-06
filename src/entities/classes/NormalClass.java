@@ -1,22 +1,14 @@
 package entities.classes;
 
 import core.Point;
-import ui.shapes.Shape;
-
 import java.awt.*;
 import java.util.Optional;
-import java.util.UUID;
+import ui.shapes.Shape;
 
 /**
  * Created by David on 31/03/2018.
  */
-public class NormalClass implements Shape, BaseClass {
-
-  private String id = UUID.randomUUID().toString();
-  private String title;
-  private Point pointOne;
-  private Point pointTwo;
-
+public class NormalClass extends BaseClass implements Shape {
 
   public NormalClass(String title, Point pointOne, Point pointTwo) {
     this.title = title;
@@ -47,26 +39,20 @@ public class NormalClass implements Shape, BaseClass {
     graphics.setColor(Color.black);
     graphics.drawRect(x, y, w, h);
     graphics.drawString(title,
-        x + (w/2) - 20 ,
+        x + (w/2) - 40,
         y + (h/2) + 5);
   }
 
   @Override
   public Optional<Shape> getShapeInCoordinate(Point point) {
-    int x = Math.min(pointOne.x, pointTwo.x);
-    int y = Math.min(pointOne.y, pointTwo.y);
-    int w = Math.abs(pointOne.x - pointTwo.x) + 1;
-    int h = Math.abs(pointOne.y - pointTwo.y) + 1;
-
-    return point.x >= x && point.x <= x + w && point.y >= y && point.y <= y + h
+    return getClassInCoordinate(point).isPresent()
         ? Optional.of(this) : Optional.empty() ;
   }
 
   @Override
-  public Shape addPoint(Point point) {
+  public void addPoint(Point point) {
     this.pointOne = point;
     this.pointTwo = new Point(pointOne.x + DEFAULT_WIDTH, pointOne.y + DEFAULT_HIGH);
-    return this;
   }
 
   @Override
@@ -74,15 +60,5 @@ public class NormalClass implements Shape, BaseClass {
     this.pointOne = pointOne;
     this.pointTwo = pointTwo;
     return this;
-  }
-
-  @Override
-  public Point getPointOne() {
-    return this.pointOne;
-  }
-
-  @Override
-  public Point getPointTwo() {
-    return this.pointTwo;
   }
 }

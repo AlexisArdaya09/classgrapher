@@ -1,29 +1,21 @@
 package entities.relations;
 
 import core.Point;
-import java.util.UUID;
-import ui.shapes.Shape;
-
 import java.awt.*;
 import java.util.Optional;
+import ui.shapes.Shape;
 
 /**
  * Created by David on 31/03/2018.
  */
-public class NormalRelation implements Relation, Shape {
-
-  private String id = UUID.randomUUID().toString();
-  private Point pointOne;
-  private Point pointTwo;
+public class NormalRelation extends Relation implements Shape {
 
   public NormalRelation() {
-    this.pointOne = new Point(0,0);
-    this.pointTwo = new Point(0,0);
+    super();
   }
 
   public NormalRelation(Point pointOne, Point pointTwo) {
-    this.pointOne = pointOne;
-    this.pointTwo = pointTwo;
+    super(pointOne, pointTwo);
   }
 
   @Override
@@ -42,9 +34,8 @@ public class NormalRelation implements Relation, Shape {
   }
 
   @Override
-  public Shape addPoint(Point point) {
+  public void addPoint(Point point) {
     this.pointOne = point;
-    return this;
   }
 
   @Override

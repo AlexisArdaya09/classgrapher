@@ -8,15 +8,15 @@ import ui.shapes.Shape;
 /**
  * Created by David on 31/03/2018.
  */
-public class AbstractClass extends BaseClass implements Shape {
+public class InterfaceClass extends BaseClass implements Shape {
 
-  public AbstractClass(String title, Point pointOne, Point pointTwo) {
+  public InterfaceClass(String title, Point pointOne, Point pointTwo) {
     this.title = title;
     this.pointOne = pointOne;
     this.pointTwo = pointTwo;
   }
 
-  public AbstractClass(String title, Point pointOne) {
+  public InterfaceClass(String title, Point pointOne) {
     this.title = title;
     this.pointOne = pointOne;
     this.pointTwo = new Point(pointOne.x + DEFAULT_WIDTH, pointOne.y + DEFAULT_HIGH);
@@ -51,7 +51,7 @@ public class AbstractClass extends BaseClass implements Shape {
     graphics.fillRect(x, y, w, h);
     graphics.setColor(Color.black);
     graphics.drawRect(x, y, w, h);
-    graphics.drawString("A",
+    graphics.drawString("I",
         x + (w / 2) - 3,
         y + (h / 2) + 5);
   }

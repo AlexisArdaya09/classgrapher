@@ -3,7 +3,6 @@ package entities.relations;
 import core.Point;
 import java.awt.*;
 import java.util.Optional;
-import java.util.UUID;
 import ui.shapes.Shape;
 
 /**
@@ -12,20 +11,14 @@ import ui.shapes.Shape;
  * @author David
  * @since 04/04/2018
  */
-public class InheritRelation implements Relation, Shape {
-  private String id = UUID.randomUUID().toString();
-  private String title;
-  private Point pointOne;
-  private Point pointTwo;
+public class InheritRelation extends Relation implements Shape {
 
   public InheritRelation() {
-    this.pointOne = new Point(0,0);
-    this.pointTwo = new Point(0,0);
+    super();
   }
 
   public InheritRelation(Point pointOne, Point pointTwo) {
-    this.pointOne = pointOne;
-    this.pointTwo = pointTwo;
+    super(pointOne, pointTwo);
   }
 
   @Override
@@ -46,9 +39,8 @@ public class InheritRelation implements Relation, Shape {
   }
 
   @Override
-  public Shape addPoint(Point point) {
+  public void addPoint(Point point) {
     this.pointOne = point;
-    return this;
   }
 
   @Override

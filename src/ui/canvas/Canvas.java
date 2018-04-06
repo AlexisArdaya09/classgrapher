@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.List;
 import java.util.Optional;
+import java.util.Stack;
 import java.util.stream.Collectors;
 import javax.swing.JPanel;
 import ui.shapes.Shape;
@@ -24,6 +25,7 @@ public class Canvas extends JPanel {
   public List<Shape> shapes;
   public LogicBoard logicBoard;
   public Tool currentTool;
+  private Stack<Shape> deletedShapes = new Stack<>();
 
   public Canvas(List<Shape> shapes, LogicBoard logicBoard, Tool currentTool) {
     this.shapes = shapes;
@@ -84,8 +86,15 @@ public class Canvas extends JPanel {
       logicBoard.connectors = logicBoard.connectors.stream()
           .filter(c -> !((Shape) c.getRelation()).getId().equals(shapes.get(shapes.size() - 1).getId()))
           .map(c -> c).collect(Collectors.toList());
+      deletedShapes.push(shapes.get(shapes.size() - 1));
       shapes.remove(shapes.size() - 1);
+
       repaint();
     }
+  }
+
+  public void redo() {
+    shapes.add(deletedShapes.pop());
+    repaint();
   }
 }

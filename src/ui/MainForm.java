@@ -69,8 +69,7 @@ public class MainForm extends JFrame {
         MenuBar.getMenu("Edit",
             Arrays.asList(
                 MenuBar.getMenuItem("Undo", e -> canvas.undo()),
-                MenuBar.getMenuItem("Editar", e -> {
-                })
+                MenuBar.getMenuItem("Redo", e -> canvas.redo())
             )
         )
     ));

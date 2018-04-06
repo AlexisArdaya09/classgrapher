@@ -9,6 +9,7 @@ import entities.classes.BaseClass;
 import entities.classes.NormalClass;
 import entities.relations.InheritRelation;
 import entities.relations.NormalRelation;
+import ui.forms.FormInput;
 import ui.shapes.Shape;
 
 import java.awt.event.MouseEvent;
@@ -81,12 +82,14 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
 
     currentShape = canvas.getShape(new Point(p.x, p.y));
     if (!currentShape.isPresent() && canvas.currentTool == Tool.CLASS) {
-      canvas.shapes.add(new NormalClass("test", new Point(p.x, p.y)));
+      String name = FormInput.getNameFromInput();
+      canvas.shapes.add(new NormalClass(name, new Point(p.x, p.y)));
       canvas.repaint();
     }
 
     if (!currentShape.isPresent() && canvas.currentTool == Tool.ABSTRACT_CLASS) {
-      canvas.shapes.add(new AbstractClass("test", new Point(p.x, p.y)));
+      String name = FormInput.getNameFromInput();
+      canvas.shapes.add(new AbstractClass(name, new Point(p.x, p.y)));
       canvas.repaint();
     }
   }

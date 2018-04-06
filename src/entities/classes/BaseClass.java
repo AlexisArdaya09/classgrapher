@@ -1,6 +1,8 @@
 package entities.classes;
 
 import core.Point;
+import core.Tool;
+import core.exception.CanNotBeCreatedException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,5 +33,19 @@ public abstract class BaseClass {
 
     return point.x >= x && point.x <= x + w && point.y >= y && point.y <= y + h
         ? Optional.of(this) : Optional.empty() ;
+  }
+
+  public static BaseClass getNewBaseClass(Tool tool, String title, Point point) throws CanNotBeCreatedException {
+    switch (tool) {
+      case ABSTRACT_CLASS: return new AbstractClass(title, point);
+      case CLASS: return new NormalClass(title, point);
+      case INTERFACE_RELATION: return new InterfaceClass(title, point);
+      default: throw new CanNotBeCreatedException();
+    }
+  }
+
+  public BaseClass setTitle(String title) {
+    this.title = title;
+    return this;
   }
 }

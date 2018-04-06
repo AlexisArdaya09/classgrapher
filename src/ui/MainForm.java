@@ -81,6 +81,9 @@ public class MainForm extends JFrame {
         ToolBar.getButton("Abstract",
             e -> canvas.currentTool = canvas.currentTool == Tool.ABSTRACT_CLASS
                 ? Tool.ANY : Tool.ABSTRACT_CLASS),
+        ToolBar.getButton("Inteface",
+            e -> canvas.currentTool = canvas.currentTool == Tool.INTERFACE_RELATION
+                ? Tool.ANY : Tool.INTERFACE_RELATION),
         ToolBar.getButton("Relation",
             e -> canvas.currentTool = canvas.currentTool == Tool.RELATION
                 ? Tool.ANY : Tool.RELATION),

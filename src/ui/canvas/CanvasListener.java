@@ -3,20 +3,17 @@ package ui.canvas;
 import core.Connector;
 import core.Point;
 import core.Tool;
+import core.exception.CanNotBeCreatedException;
 import core.exception.ConnectorException;
-import entities.classes.AbstractClass;
 import entities.classes.BaseClass;
-import entities.classes.NormalClass;
-import entities.relations.InheritRelation;
-import entities.relations.NormalRelation;
-import ui.forms.FormInput;
-import ui.shapes.Shape;
-
+import entities.relations.Relation;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import ui.forms.FormInput;
+import ui.shapes.Shape;
 
 /**
  * Canvas Listener.
@@ -35,62 +32,24 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
   }
 
   @Override
-  public void mouseClicked(MouseEvent e) {
-
-  }
-
-  @Override
   public void mousePressed(MouseEvent e) {
-    java.awt.Point p = e.getPoint();
+    java.awt.Point point = e.getPoint();
 
-    if (canvas.currentTool == Tool.RELATION || canvas.currentTool == Tool.INHERIT_RELATION) {
-      if (selection == 0) {
-        currentRelation = canvas.currentTool;
-        canvas.getShape(new Point(p.x, p.y)).ifPresent(shape -> {
-          currentShape = Optional.of(shape);
-          selection++;
-        });
-        return;
-      }
-      if (selection == 1) {
-        canvas.getShape(new Point(p.x, p.y)).ifPresent(shape -> {
-          try {
-            Connector connector;
-            if (currentRelation == Tool.RELATION) {
-              connector = new Connector(
-                  (BaseClass) currentShape.get(),
-                  (BaseClass) shape, new NormalRelation());
-            } else {
-              connector = new Connector(
-                  (BaseClass) currentShape.get(),
-                  (BaseClass) shape, new InheritRelation());
-            }
-            canvas.logicBoard.addConnector(connector);
-            canvas.shapes.add((Shape) connector.getRelation());
-          } catch (ConnectorException e1) {
-            e1.printStackTrace();
-          }
-
-          selection = 0;
-          canvas.currentTool = Tool.ANY;
-          canvas.repaint();
-        });
-
-      }
+    if (Tool.isToolRelation(canvas.currentTool)) {
+      execRelation(point);
       return;
     }
 
-    currentShape = canvas.getShape(new Point(p.x, p.y));
-    if (!currentShape.isPresent() && canvas.currentTool == Tool.CLASS) {
-      String name = FormInput.getNameFromInput();
-      canvas.shapes.add(new NormalClass(name, new Point(p.x, p.y)));
-      canvas.repaint();
-    }
+    currentShape = canvas.getShape(new Point(point.x, point.y));
 
-    if (!currentShape.isPresent() && canvas.currentTool == Tool.ABSTRACT_CLASS) {
-      String name = FormInput.getNameFromInput();
-      canvas.shapes.add(new AbstractClass(name, new Point(p.x, p.y)));
-      canvas.repaint();
+    if (!currentShape.isPresent() && Tool.isToolClass(canvas.currentTool)) {
+      try {
+        canvas.shapes.add((Shape) BaseClass.getNewBaseClass(canvas.currentTool, FormInput.getNameFromInput(), new Point(point.x, point.y)));
+        canvas.currentTool = Tool.ANY;
+        canvas.repaint();
+      } catch (CanNotBeCreatedException e1) {
+        e1.printStackTrace();
+      }
     }
   }
 
@@ -99,16 +58,6 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
     if (canvas.currentTool != Tool.RELATION && canvas.currentTool != Tool.INHERIT_RELATION) {
       currentShape = Optional.empty();
     }
-  }
-
-  @Override
-  public void mouseEntered(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseExited(MouseEvent e) {
-
   }
 
   @Override
@@ -126,8 +75,60 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
     canvas.repaint();
   }
 
-  @Override
-  public void mouseMoved(MouseEvent e) {
+  private void execRelation(java.awt.Point point) {
+    if (selection == 0) {
+      currentRelation = canvas.currentTool;
+      canvas.getShape(new Point(point.x, point.y)).ifPresent(shape -> {
+        currentShape = Optional.of(shape);
+        selection++;
+      });
+      return;
+    }
+    if (selection == 1) {
+      canvas.getShape(new Point(point.x, point.y)).ifPresent(shape -> {
+        try {
+          Connector connector;
+          connector = new Connector(
+              (BaseClass) currentShape.get(),
+              (BaseClass) shape,
+              Relation.getNewRelation(currentRelation));
 
+          canvas.logicBoard.addConnector(connector);
+          canvas.shapes.add((Shape) connector.getRelation());
+        } catch (ConnectorException | CanNotBeCreatedException e1) {
+          e1.printStackTrace();
+        }
+
+        selection = 0;
+        canvas.currentTool = Tool.ANY;
+        canvas.repaint();
+      });
+    }
   }
+
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    if (e.getClickCount() == 2) {
+      java.awt.Point point = e.getPoint();
+      currentShape = canvas.getShape(new Point(point.x, point.y));
+      currentShape.ifPresent(cs -> {
+        canvas.shapes = canvas.shapes.stream().map(s -> {
+          if (s.getId().equals(cs.getId())) {
+            return (Shape) ((BaseClass) s).setTitle(FormInput.getNameFromInput());
+          }
+          return s;
+        }).collect(Collectors.toList());
+        canvas.repaint();
+      });
+    }
+  }
+
+  @Override
+  public void mouseEntered(MouseEvent e) {}
+
+  @Override
+  public void mouseExited(MouseEvent e) {}
+
+  @Override
+  public void mouseMoved(MouseEvent e) {}
 }

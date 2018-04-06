@@ -1,6 +1,8 @@
 package entities.relations;
 
 import core.Point;
+import core.Tool;
+import core.exception.CanNotBeCreatedException;
 import java.util.UUID;
 
 /**
@@ -19,5 +21,14 @@ public abstract class Relation {
   public Relation(Point pointOne, Point pointTwo) {
     this.pointOne = pointOne;
     this.pointTwo = pointTwo;
+  }
+
+  public static Relation getNewRelation(Tool tool) throws CanNotBeCreatedException {
+    switch (tool) {
+      case RELATION: return new NormalRelation();
+      case INHERIT_RELATION: return new InheritRelation();
+      case INTERFACE_RELATION: return new InterfaceRelation();
+      default: throw new CanNotBeCreatedException();
+    }
   }
 }

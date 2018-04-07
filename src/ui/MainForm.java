@@ -21,8 +21,8 @@ import java.util.List;
  */
 public class MainForm extends JFrame {
 
-    private static final int width = 600;
-    private static final int height = 400;
+    private static final int width = 1000;
+    private static final int height = 800;
     private JMenuBar menuBar;
     private JComponent toolbar;
     private Canvas canvas;
@@ -75,25 +75,25 @@ public class MainForm extends JFrame {
 
     private JComponent createToolBar() {
         return ToolBar.getToolBar(Arrays.asList(
-                ToolBar.getButton("Class",
+                ToolBar.getButton("/resource/class.png",
                         e -> canvas.currentTool = canvas.currentTool == Tool.CLASS
                                 ? Tool.ANY : Tool.CLASS),
-                ToolBar.getButton("Abstract",
+                ToolBar.getButton("/resource/abstract.png",
                         e -> canvas.currentTool = canvas.currentTool == Tool.ABSTRACT_CLASS
                                 ? Tool.ANY : Tool.ABSTRACT_CLASS),
-                ToolBar.getButton("Relation",
+                ToolBar.getButton("/resource/association.png",
                         e -> canvas.currentTool = canvas.currentTool == Tool.RELATION
                                 ? Tool.ANY : Tool.RELATION),
-                ToolBar.getButton("Inherit",
+                ToolBar.getButton("/resource/inherit.png",
                         e -> canvas.currentTool = canvas.currentTool == Tool.INHERIT_RELATION
                                 ? Tool.ANY : Tool.INHERIT_RELATION),
-                ToolBar.getButton("Inteface",
+                ToolBar.getButton("/resource/interface.png",
                         e -> canvas.currentTool = canvas.currentTool == Tool.INTERFACE_RELATION
                                 ? Tool.ANY : Tool.INTERFACE_RELATION),
-                ToolBar.getButton("Aggregation",
+                ToolBar.getButton("/resource/aggregation.png",
                         e -> canvas.currentTool = canvas.currentTool == Tool.AGGREGATION_RELATION
                                 ? Tool.ANY : Tool.AGGREGATION_RELATION),
-                ToolBar.getButton("Composition",
+                ToolBar.getButton("/resource/composition.png",
                         e -> canvas.currentTool = canvas.currentTool == Tool.COMPOSITION_RELATION
                                 ? Tool.ANY : Tool.COMPOSITION_RELATION)
         ));

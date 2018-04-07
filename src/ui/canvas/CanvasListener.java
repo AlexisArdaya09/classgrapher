@@ -55,7 +55,8 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
 
   @Override
   public void mouseReleased(MouseEvent e) {
-    if (canvas.currentTool != Tool.RELATION && canvas.currentTool != Tool.INHERIT_RELATION) {
+    if (canvas.currentTool != Tool.RELATION && canvas.currentTool != Tool.INHERIT_RELATION && canvas.currentTool != Tool.INTERFACE_RELATION
+            && canvas.currentTool != Tool.AGGREGATION_RELATION && canvas.currentTool != Tool.COMPOSITION_RELATION) {
       currentShape = Optional.empty();
     }
   }

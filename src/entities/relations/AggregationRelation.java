@@ -7,18 +7,15 @@ import java.awt.*;
 import java.util.Optional;
 
 /**
- * Interface Relation.
- *
- * @author David
- * @since 04/04/2018
+ * Created by ALEXIS ARDAYA on 6/4/2018.
  */
-public class InterfaceRelation extends Relation implements Shape {
+public class AggregationRelation extends Relation implements Shape {
 
-  public InterfaceRelation() {
+  public AggregationRelation() {
     super();
   }
 
-  public InterfaceRelation(Point pointOne, Point pointTwo) {
+  public AggregationRelation(Point pointOne, Point pointTwo) {
     super(pointOne, pointTwo);
   }
 
@@ -29,16 +26,12 @@ public class InterfaceRelation extends Relation implements Shape {
 
   @Override
   public void draw(Graphics graphics) {
-    Graphics2D graphics2D = (Graphics2D) graphics;
-    float dash[] = {10};
-    graphics2D.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 5.0f,
-            dash, 0.0f));
-    graphics2D.drawLine(pointOne.x, pointOne.y, pointTwo.x - 10, pointTwo.y - 10);
+    graphics.drawLine(pointOne.x, pointOne.y, pointTwo.x - 20, pointTwo.y - 20);
 
-    graphics2D.setStroke(new BasicStroke(1));
     graphics.drawLine(pointTwo.x, pointTwo.y, pointTwo.x - 5, pointTwo.y - 15);
     graphics.drawLine(pointTwo.x, pointTwo.y, pointTwo.x - 15, pointTwo.y - 5);
-    graphics.drawLine(pointTwo.x - 15, pointTwo.y - 5, pointTwo.x - 5, pointTwo.y - 15);
+    graphics.drawLine(pointTwo.x - 5, pointTwo.y - 15, pointTwo.x - 20, pointTwo.y - 20);
+    graphics.drawLine(pointTwo.x - 15, pointTwo.y - 5, pointTwo.x - 20, pointTwo.y - 20);
   }
 
   @Override

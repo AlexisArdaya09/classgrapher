@@ -7,12 +7,6 @@ import entities.relations.NormalRelation;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Connector Exception Test.
- *
- * @author David
- * @since 01/04/2018
- */
 public class ConnectorExceptionTest {
   @Test
   public void createGoodConectorTest() throws ConnectorException {

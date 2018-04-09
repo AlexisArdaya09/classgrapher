@@ -6,9 +6,6 @@ import ui.shapes.Shape;
 import java.awt.*;
 import java.util.Optional;
 
-/**
- * Created by David on 31/03/2018.
- */
 public class NormalRelation extends Relation implements Shape {
 
   public NormalRelation() {

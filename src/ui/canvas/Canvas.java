@@ -9,12 +9,6 @@ import java.util.Optional;
 import javax.swing.*;
 import ui.shapes.Shape;
 
-/**
- * Canvas.
- *
- * @author David
- * @since 31/03/2018
- */
 public class Canvas extends JPanel {
   public LogicBoard logicBoard;
 

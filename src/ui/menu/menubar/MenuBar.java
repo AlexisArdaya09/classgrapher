@@ -6,12 +6,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import ui.menu.listeners.ActionListener;
 
-/**
- * MenuBar.
- *
- * @author David
- * @since 01/04/2018
- */
 public interface MenuBar {
   static JMenuBar getMenuBar(List<JMenu> menus) {
     JMenuBar menuBar = new JMenuBar();

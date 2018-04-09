@@ -9,12 +9,6 @@ import ui.canvas.Canvas;
 import ui.menu.menubar.MenuBar;
 import ui.menu.toolbar.ToolBar;
 
-/**
- * Main Form.
- *
- * @author David
- * @since 31/03/2018
- */
 public class MainForm extends JFrame {
 
     private static final int width = 1000;

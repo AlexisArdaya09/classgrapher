@@ -6,12 +6,6 @@ import ui.shapes.Shape;
 import java.awt.*;
 import java.util.Optional;
 
-/**
- * Interface Relation.
- *
- * @author David
- * @since 04/04/2018
- */
 public class InterfaceRelation extends Relation implements Shape {
 
   public InterfaceRelation() {

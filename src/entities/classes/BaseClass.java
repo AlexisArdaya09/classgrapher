@@ -37,7 +37,7 @@ public abstract class BaseClass {
 
   public static BaseClass getNewBaseClass(Tool tool, String title, Point point) throws CanNotBeCreatedException {
     switch (tool) {
-      case ABSTRACT_CLASS: return new AbstractClass(title, point);
+      case ABSTRACT_CLASS: return new AbstractClass(title, point) ;
       case CLASS: return new NormalClass(title, point);
       case INTERFACE_RELATION: return new InterfaceClass(title, point);
       default: throw new CanNotBeCreatedException();

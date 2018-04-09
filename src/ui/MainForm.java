@@ -2,16 +2,12 @@ package ui;
 
 import core.LogicBoard;
 import core.Tool;
+import java.awt.*;
+import java.util.Arrays;
+import javax.swing.*;
 import ui.canvas.Canvas;
 import ui.menu.menubar.MenuBar;
 import ui.menu.toolbar.ToolBar;
-import ui.shapes.Shape;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Main Form.
@@ -26,18 +22,17 @@ public class MainForm extends JFrame {
     private JMenuBar menuBar;
     private JComponent toolbar;
     private Canvas canvas;
-    private Tool currentTool;
 
     private LogicBoard logicBoard;
-    private List<Shape> shapes = new ArrayList<>(0);
 
     public MainForm(String title) throws HeadlessException {
         super(title);
         this.logicBoard = new LogicBoard();
+
         this.menuBar = this.createMenuBar();
         this.toolbar = this.createToolBar();
-        this.currentTool = Tool.ANY;
-        this.canvas = new Canvas(shapes, logicBoard, currentTool);
+        this.logicBoard.currentTool = Tool.ANY;
+        this.canvas = new Canvas(logicBoard);
         this.initForm();
     }
 
@@ -76,25 +71,25 @@ public class MainForm extends JFrame {
     private JComponent createToolBar() {
         return ToolBar.getToolBar(Arrays.asList(
                 ToolBar.getButton("/resource/class.png",
-                        e -> canvas.currentTool = canvas.currentTool == Tool.CLASS
+                        e -> logicBoard.currentTool = logicBoard.currentTool == Tool.CLASS
                                 ? Tool.ANY : Tool.CLASS),
                 ToolBar.getButton("/resource/abstract.png",
-                        e -> canvas.currentTool = canvas.currentTool == Tool.ABSTRACT_CLASS
+                        e -> logicBoard.currentTool = logicBoard.currentTool == Tool.ABSTRACT_CLASS
                                 ? Tool.ANY : Tool.ABSTRACT_CLASS),
                 ToolBar.getButton("/resource/association.png",
-                        e -> canvas.currentTool = canvas.currentTool == Tool.RELATION
+                        e -> logicBoard.currentTool = logicBoard.currentTool == Tool.RELATION
                                 ? Tool.ANY : Tool.RELATION),
                 ToolBar.getButton("/resource/inherit.png",
-                        e -> canvas.currentTool = canvas.currentTool == Tool.INHERIT_RELATION
+                        e -> logicBoard.currentTool = logicBoard.currentTool == Tool.INHERIT_RELATION
                                 ? Tool.ANY : Tool.INHERIT_RELATION),
                 ToolBar.getButton("/resource/interface.png",
-                        e -> canvas.currentTool = canvas.currentTool == Tool.INTERFACE_RELATION
+                        e -> logicBoard.currentTool = logicBoard.currentTool == Tool.INTERFACE_RELATION
                                 ? Tool.ANY : Tool.INTERFACE_RELATION),
                 ToolBar.getButton("/resource/aggregation.png",
-                        e -> canvas.currentTool = canvas.currentTool == Tool.AGGREGATION_RELATION
+                        e -> logicBoard.currentTool = logicBoard.currentTool == Tool.AGGREGATION_RELATION
                                 ? Tool.ANY : Tool.AGGREGATION_RELATION),
                 ToolBar.getButton("/resource/composition.png",
-                        e -> canvas.currentTool = canvas.currentTool == Tool.COMPOSITION_RELATION
+                        e -> logicBoard.currentTool = logicBoard.currentTool == Tool.COMPOSITION_RELATION
                                 ? Tool.ANY : Tool.COMPOSITION_RELATION)
         ));
     }

@@ -76,6 +76,9 @@ public class MainForm extends JFrame {
                 ToolBar.getButton("/resource/abstract.png",
                         e -> logicBoard.currentTool = logicBoard.currentTool == Tool.ABSTRACT_CLASS
                                 ? Tool.ANY : Tool.ABSTRACT_CLASS),
+                ToolBar.getButton("/resource/abstract.png",
+                         e -> logicBoard.currentTool = logicBoard.currentTool == Tool.INTERFACE_CLASS
+                                ? Tool.ANY : Tool.INTERFACE_CLASS),
                 ToolBar.getButton("/resource/association.png",
                         e -> logicBoard.currentTool = logicBoard.currentTool == Tool.RELATION
                                 ? Tool.ANY : Tool.RELATION),

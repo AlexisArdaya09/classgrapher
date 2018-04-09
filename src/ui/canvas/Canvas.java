@@ -7,7 +7,7 @@ import entities.relations.Relation;
 import java.awt.*;
 import java.util.Optional;
 import javax.swing.*;
-import ui.shapes.Shape;
+import core.Shape;
 
 public class Canvas extends JPanel {
   public LogicBoard logicBoard;
@@ -44,10 +44,8 @@ public class Canvas extends JPanel {
   }
 
   public void undo() {
-    if (logicBoard.shapes.size() > 0){
-      logicBoard.undo();
-      repaint();
-    }
+    logicBoard.undo();
+    repaint();
   }
 
   public void redo() {

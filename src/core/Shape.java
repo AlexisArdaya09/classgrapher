@@ -1,6 +1,5 @@
-package ui.shapes;
+package core;
 
-import core.Point;
 import java.awt.*;
 import java.util.Optional;
 

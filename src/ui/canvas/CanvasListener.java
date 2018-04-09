@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import ui.forms.FormInput;
-import ui.shapes.Shape;
+import core.Shape;
 
 public class CanvasListener implements MouseListener, MouseMotionListener {
   private Canvas canvas;

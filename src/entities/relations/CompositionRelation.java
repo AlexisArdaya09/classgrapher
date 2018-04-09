@@ -3,7 +3,7 @@ package entities.relations;
 import core.Point;
 import java.awt.*;
 import java.util.Optional;
-import ui.shapes.Shape;
+import core.Shape;
 
 public class CompositionRelation extends Relation implements Shape {
 

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
 import java.util.stream.Collectors;
-import ui.shapes.Shape;
 
 public class LogicBoard {
   public List<Connector> connectors = new ArrayList<>(0);

@@ -3,7 +3,7 @@ package entities.classes;
 import core.Point;
 import java.awt.*;
 import java.util.Optional;
-import ui.shapes.Shape;
+import core.Shape;
 
 public class AbstractClass extends BaseClass implements Shape {
 

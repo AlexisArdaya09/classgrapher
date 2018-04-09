@@ -1,7 +1,7 @@
 package entities.relations;
 
 import core.Point;
-import ui.shapes.Shape;
+import core.Shape;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;

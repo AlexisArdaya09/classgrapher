@@ -39,7 +39,7 @@ public abstract class BaseClass {
     switch (tool) {
       case ABSTRACT_CLASS: return new AbstractClass(title, point) ;
       case CLASS: return new NormalClass(title, point);
-      case INTERFACE_RELATION: return new InterfaceClass(title, point);
+      case INTERFACE_CLASS: return new InterfaceClass(title, point);
       default: throw new CanNotBeCreatedException();
     }
   }

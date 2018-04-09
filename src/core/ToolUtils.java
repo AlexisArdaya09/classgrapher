@@ -1,11 +1,5 @@
 package core;
 
-/**
- * Description.
- *
- * @author David
- * @since 08/04/2018
- */
 public interface ToolUtils {
   static boolean isToolRelation(Tool tool) {
     return tool == Tool.RELATION || tool == Tool.AGGREGATION_RELATION || tool == Tool.COMPOSITION_RELATION

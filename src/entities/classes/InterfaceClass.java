@@ -5,9 +5,6 @@ import java.awt.*;
 import java.util.Optional;
 import ui.shapes.Shape;
 
-/**
- * Created by David on 31/03/2018.
- */
 public class InterfaceClass extends BaseClass implements Shape {
 
   public InterfaceClass(String title, Point pointOne, Point pointTwo) {

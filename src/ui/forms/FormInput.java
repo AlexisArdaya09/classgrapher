@@ -3,12 +3,6 @@ package ui.forms;
 import java.awt.*;
 import javax.swing.*;
 
-/**
- * Form Input.
- *
- * @author David
- * @since 05/04/2018
- */
 public interface FormInput {
   static String getNameFromInput(){
     JTextField field1 = new JTextField("");

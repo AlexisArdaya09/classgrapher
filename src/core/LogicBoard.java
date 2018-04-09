@@ -7,9 +7,6 @@ import java.util.Stack;
 import java.util.stream.Collectors;
 import ui.shapes.Shape;
 
-/**
- * Created by David on 31/03/2018.
- */
 public class LogicBoard {
   public List<Connector> connectors = new ArrayList<>(0);
   public List<Shape> shapes = new ArrayList<>(0);

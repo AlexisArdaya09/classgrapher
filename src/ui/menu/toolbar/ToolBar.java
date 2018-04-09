@@ -6,12 +6,6 @@ import javax.swing.*;
 
 import ui.menu.listeners.ActionListener;
 
-/**
- * ToolBar.
- *
- * @author David
- * @since 01/04/2018
- */
 public interface ToolBar {
   static JComponent getToolBar(List<JButton> buttons){
     JPanel toolbar = new JPanel(new GridLayout(0, 2));

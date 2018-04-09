@@ -7,9 +7,6 @@ import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.util.Optional;
 
-/**
- * Created by ALEXIS ARDAYA on 6/4/2018.
- */
 public class CompositionRelation extends Relation implements Shape {
 
   public CompositionRelation() {

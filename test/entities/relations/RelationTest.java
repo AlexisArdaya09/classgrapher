@@ -5,12 +5,6 @@ import core.exception.CanNotBeCreatedException;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Description.
- *
- * @author David
- * @since 06/04/2018
- */
 public class RelationTest {
   @Test
   public void getNewNormalRelation() throws CanNotBeCreatedException {

@@ -1,11 +1,5 @@
 package core;
 
-/**
- * Description.
- *
- * @author David
- * @since 01/04/2018
- */
 public class Point {
   public int x;
   public int y;

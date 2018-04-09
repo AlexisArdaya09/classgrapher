@@ -7,12 +7,6 @@ import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.util.Optional;
 
-/**
- * Inherit Relation.
- *
- * @author David
- * @since 04/04/2018
- */
 public class InheritRelation extends Relation implements Shape {
 
   public InheritRelation() {

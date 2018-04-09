@@ -17,12 +17,6 @@ import java.util.stream.Collectors;
 import ui.forms.FormInput;
 import ui.shapes.Shape;
 
-/**
- * Canvas Listener.
- *
- * @author David
- * @since 31/03/2018
- */
 public class CanvasListener implements MouseListener, MouseMotionListener {
   private Canvas canvas;
   private Optional<Shape> currentShape = Optional.empty();
@@ -131,8 +125,6 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
       });
     }
   }
-
-
 
   @Override
   public void mouseEntered(MouseEvent e) {}

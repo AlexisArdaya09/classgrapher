@@ -6,9 +6,6 @@ import ui.shapes.Shape;
 import java.awt.*;
 import java.util.Optional;
 
-/**
- * Created by ALEXIS ARDAYA on 6/4/2018.
- */
 public class AggregationRelation extends Relation implements Shape {
 
   public AggregationRelation() {

@@ -5,9 +5,6 @@ import entities.classes.BaseClass;
 import entities.relations.Relation;
 import java.util.Optional;
 
-/**
- * Created by David on 31/03/2018.
- */
 public class Connector {
   private BaseClass classA;
   private BaseClass classB;

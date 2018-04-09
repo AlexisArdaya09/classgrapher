@@ -10,6 +10,8 @@ public abstract class Relation {
   protected String id = UUID.randomUUID().toString();
   protected Point pointOne;
   protected Point pointTwo;
+  protected final int ARROW_LENGTH = 20;
+  protected final int ARROW_ANGLE = 25;
 
   public Relation() {
     this.pointOne = new Point(0, 0);
@@ -36,5 +38,17 @@ public abstract class Relation {
       default:
         throw new CanNotBeCreatedException();
     }
+  }
+
+  public double getAngle() {
+    double py = -(pointOne.y - pointTwo.y);
+    double px = (pointOne.x - pointTwo.x);
+    return px < 0 ? Math.atan(py / px) + Math.PI : Math.atan(py / px);
+  }
+
+  protected Point calculatePointsArrow(Point point, int arrowLength, double angleLine) {
+    long px = (long) (point.x + arrowLength * Math.cos(angleLine));
+    long py = (long) (point.y - arrowLength * Math.sin(angleLine));
+    return new Point(Math.round(px), Math.round(py));
   }
 }

@@ -23,12 +23,27 @@ public class AggregationRelation extends Relation implements Shape {
 
   @Override
   public void draw(Graphics graphics) {
-    graphics.drawLine(pointOne.x, pointOne.y, pointTwo.x - 20, pointTwo.y - 20);
+    graphics.drawLine(pointOne.x, pointOne.y, pointTwo.x, pointTwo.y);
 
-    graphics.drawLine(pointTwo.x, pointTwo.y, pointTwo.x - 5, pointTwo.y - 15);
-    graphics.drawLine(pointTwo.x, pointTwo.y, pointTwo.x - 15, pointTwo.y - 5);
-    graphics.drawLine(pointTwo.x - 5, pointTwo.y - 15, pointTwo.x - 20, pointTwo.y - 20);
-    graphics.drawLine(pointTwo.x - 15, pointTwo.y - 5, pointTwo.x - 20, pointTwo.y - 20);
+    Point point1 = calculatePointsArrow(pointTwo, ARROW_LENGTH, getAngle() - Math.toRadians(ARROW_ANGLE));
+    Point point2 = calculatePointsArrow(pointTwo, ARROW_LENGTH, getAngle() + Math.toRadians(ARROW_ANGLE));
+    Point point3 = calculatePointsArrow(point1, ARROW_LENGTH, getAngle() - Math.toRadians(-ARROW_ANGLE));
+
+    Polygon polygon = new Polygon();
+    polygon.addPoint(pointTwo.x, pointTwo.y);
+    polygon.addPoint(point1.x, point1.y);
+    polygon.addPoint(point3.x, point3.y);
+    polygon.addPoint(point2.x, point2.y);
+    graphics.setColor(Color.black);
+
+    Graphics2D graphics2D = (Graphics2D) graphics;
+    graphics2D.setStroke(new BasicStroke(2));
+    graphics.drawPolygon(polygon);
+    graphics.setColor(Color.white);
+    graphics.fillPolygon(polygon);
+    graphics2D.setStroke(new BasicStroke(1));
+    graphics.setColor(Color.black);
+
   }
 
   @Override

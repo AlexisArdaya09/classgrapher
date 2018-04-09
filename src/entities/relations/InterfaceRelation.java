@@ -1,6 +1,7 @@
 package entities.relations;
 
 import core.Point;
+import java.awt.geom.GeneralPath;
 import ui.shapes.Shape;
 
 import java.awt.*;
@@ -27,12 +28,28 @@ public class InterfaceRelation extends Relation implements Shape {
     float dash[] = {10};
     graphics2D.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 5.0f,
             dash, 0.0f));
-    graphics2D.drawLine(pointOne.x, pointOne.y, pointTwo.x - 10, pointTwo.y - 10);
+    graphics2D.drawLine(pointOne.x, pointOne.y, pointTwo.x, pointTwo.y);
+
 
     graphics2D.setStroke(new BasicStroke(1));
-    graphics.drawLine(pointTwo.x, pointTwo.y, pointTwo.x - 5, pointTwo.y - 15);
-    graphics.drawLine(pointTwo.x, pointTwo.y, pointTwo.x - 15, pointTwo.y - 5);
-    graphics.drawLine(pointTwo.x - 15, pointTwo.y - 5, pointTwo.x - 5, pointTwo.y - 15);
+    GeneralPath path = new GeneralPath();
+    path.moveTo(pointTwo.x, pointTwo.y);
+    Point pointA = calculatePointsArrow(pointTwo, ARROW_LENGTH, getAngle() - Math
+        .toRadians(ARROW_ANGLE));
+
+    Point pointB = calculatePointsArrow(pointTwo, ARROW_LENGTH, getAngle() + Math
+        .toRadians(ARROW_ANGLE));
+
+    path.lineTo(pointA.x, pointA.y);
+    path.lineTo(pointB.x, pointB.y);
+
+    path.closePath();
+    graphics2D.setStroke(new BasicStroke(2));
+    graphics2D.draw(path);
+    graphics2D.setColor(Color.WHITE);
+    graphics2D.fill(path);
+    graphics2D.setStroke(new BasicStroke(1));
+    graphics.setColor(Color.black);
   }
 
   @Override

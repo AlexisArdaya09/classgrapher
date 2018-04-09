@@ -24,11 +24,18 @@ public class InheritRelation extends Relation implements Shape {
 
   @Override
   public void draw(Graphics graphics) {
-    graphics.drawLine(pointOne.x, pointOne.y, pointTwo.x, pointTwo.y - 10);
+    graphics.drawLine(pointOne.x, pointOne.y, pointTwo.x, pointTwo.y);
     GeneralPath path = new GeneralPath();
     path.moveTo(pointTwo.x, pointTwo.y);
-    path.lineTo(pointTwo.x - 5, pointTwo.y - 10);
-    path.lineTo(pointTwo.x + 5, pointTwo.y - 10);
+
+    Point pointA = calculatePointsArrow(pointTwo, ARROW_LENGTH, getAngle() - Math
+        .toRadians(ARROW_ANGLE));
+
+    Point pointB = calculatePointsArrow(pointTwo, ARROW_LENGTH, getAngle() + Math
+        .toRadians(ARROW_ANGLE));
+
+    path.lineTo(pointA.x, pointA.y);
+    path.lineTo(pointB.x, pointB.y);
 
     path.closePath();
 
@@ -56,4 +63,6 @@ public class InheritRelation extends Relation implements Shape {
     this.pointTwo = pointTwo;
     return this;
   }
+
+
 }

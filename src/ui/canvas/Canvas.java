@@ -2,14 +2,16 @@ package ui.canvas;
 
 import core.LogicBoard;
 import core.Point;
+import core.Shape;
 import entities.classes.BaseClass;
 import entities.relations.Relation;
-import java.awt.*;
-import java.util.Optional;
-import javax.swing.*;
-import core.Shape;
 
-public class Canvas extends JPanel {
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.util.Optional;
+
+public class Canvas extends JPanel implements Serializable {
   public LogicBoard logicBoard;
 
 
@@ -34,13 +36,43 @@ public class Canvas extends JPanel {
     paintConectors(graphics);
   }
 
+  public Optional<Shape> getShape(Point point) {
+    return logicBoard.getShape(point);
+  }
+
   public void clean() {
     this.logicBoard.clean();
     repaint();
   }
 
-  public Optional<Shape> getShape(Point point) {
-    return logicBoard.getShape(point);
+  public void newFile() {
+    this.clean();
+  }
+
+  public void saveFile() {
+    String filename = "Diagram";
+    try {
+      ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
+      out.writeObject(logicBoard);
+      out.close();
+      System.out.println("Save drawing to " + filename);
+    } catch (IOException e) {
+      System.out.println("Unable to write file: " + filename);
+    }
+  }
+
+  public void openFile() {
+    String filename = "Diagram";
+    try {
+      ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
+      logicBoard = (LogicBoard) in.readObject();
+      in.close();
+      repaint();
+    } catch (IOException e1) {
+      System.out.println("Unable to open file: " + filename);
+    } catch (ClassNotFoundException e2) {
+      System.out.println(e2);
+    }
   }
 
   public void undo() {
@@ -53,28 +85,38 @@ public class Canvas extends JPanel {
     repaint();
   }
 
-  private void paintShapes(Graphics graphics){
+  public void about() {
+    JOptionPane.showMessageDialog(null,
+            "Class Graphic 0.1\n" +
+                    "Team: \n " +
+                    " - David Batista \n" +
+                    " - Alexis Ardaya \n" +
+                    " - Veronica Lopez", "About",
+            JOptionPane.INFORMATION_MESSAGE);
+  }
+
+  private void paintShapes(Graphics graphics) {
     logicBoard.shapes.stream().filter(v -> Optional.ofNullable(v).isPresent()
-        && !v.getClass().isInstance(Relation.class))
-        .forEach(shape -> shape.draw(graphics));
+            && !v.getClass().isInstance(Relation.class))
+            .forEach(shape -> shape.draw(graphics));
   }
 
   private void paintConectors(Graphics graphics) {
     logicBoard.connectors.forEach(connector -> {
       BaseClass baseClassA = logicBoard.shapes.stream().filter(s -> s.getId().equals(((Shape) connector
-          .getClassA())
-          .getId())).map(s -> (BaseClass) s).findFirst().get();
+              .getClassA())
+              .getId())).map(s -> (BaseClass) s).findFirst().get();
 
       BaseClass baseClassB = logicBoard.shapes.stream().filter(s -> s.getId().equals(((Shape) connector
-          .getClassB())
-          .getId())).map(s -> (BaseClass) s).findFirst().get();
+              .getClassB())
+              .getId())).map(s -> (BaseClass) s).findFirst().get();
 
       int x1 = baseClassA.getPointOne().x
-          + ((Math.abs(baseClassA.getPointTwo().x - baseClassA.getPointOne().x)) / 2);
+              + ((Math.abs(baseClassA.getPointTwo().x - baseClassA.getPointOne().x)) / 2);
       int y1 = baseClassA.getPointOne().y;
 
       int x2 = baseClassB.getPointOne().x
-          + ((Math.abs(baseClassB.getPointTwo().x - baseClassB.getPointOne().x)) / 2);
+              + ((Math.abs(baseClassB.getPointTwo().x - baseClassB.getPointOne().x)) / 2);
       int y2 = baseClassB.getPointOne().y;
 
       ((Shape) connector.getRelation()).addPoints(new Point(x1, y1), new Point(x2, y2)).draw(graphics);

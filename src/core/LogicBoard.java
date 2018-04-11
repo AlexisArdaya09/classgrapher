@@ -1,12 +1,13 @@
 package core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-public class LogicBoard {
+public class LogicBoard implements Serializable {
   public List<Connector> connectors = new ArrayList<>(0);
   public List<Shape> shapes = new ArrayList<>(0);
   public Tool currentTool = Tool.ANY;

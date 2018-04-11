@@ -1,10 +1,9 @@
 package core;
 
 import java.awt.*;
-import java.io.Serializable;
 import java.util.Optional;
 
-public interface Shape extends Serializable {
+public interface Shape {
   String getId();
 
   void draw(Graphics graphics);

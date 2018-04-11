@@ -3,6 +3,11 @@ package ui;
 import core.LogicBoard;
 import core.Tool;
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import javax.swing.*;
 import ui.canvas.Canvas;
@@ -17,12 +22,10 @@ public class MainForm extends JFrame {
     private JComponent toolbar;
     private Canvas canvas;
 
-    private LogicBoard logicBoard;
+    private LogicBoard logicBoard = new LogicBoard();
 
     public MainForm(String title) throws HeadlessException {
         super(title);
-        this.logicBoard = new LogicBoard();
-
         this.menuBar = this.createMenuBar();
         this.toolbar = this.createToolBar();
         this.logicBoard.currentTool = Tool.ANY;
@@ -51,8 +54,12 @@ public class MainForm extends JFrame {
                 MenuBar.getMenu("File",
                         Arrays.asList(
                                 MenuBar.getMenuItem("New", e -> canvas.newFile()),
-                                MenuBar.getMenuItem("Save", e -> canvas.saveFile()),
-                                MenuBar.getMenuItem("Open", e -> canvas.openFile())
+                                MenuBar.getMenuItem("Save", e -> saveFile()),
+                                MenuBar.getMenuItem("Open", e -> {
+                                    openFile();
+                                    canvas.updateLogicBoard(logicBoard);
+                                    canvas.repaint();
+                                })
                         )
                 ),
                 MenuBar.getMenu("Edit",
@@ -96,5 +103,30 @@ public class MainForm extends JFrame {
                         e -> logicBoard.currentTool = logicBoard.currentTool == Tool.COMPOSITION_RELATION
                                 ? Tool.ANY : Tool.COMPOSITION_RELATION)
         ));
+    }
+
+    public void saveFile() {
+        String filename = "Diagram";
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
+            out.writeObject(logicBoard);
+            out.close();
+            System.out.println("Save drawing to " + filename);
+        } catch (IOException e) {
+            System.out.println("Unable to write file: " + filename);
+        }
+    }
+
+    public void openFile() {
+        String filename = "Diagram";
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
+            logicBoard = (LogicBoard) in.readObject();
+            in.close();
+        } catch (IOException e1) {
+            System.out.println("Unable to open file: " + filename);
+        } catch (ClassNotFoundException e2) {
+            System.out.println(e2);
+        }
     }
 }

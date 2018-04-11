@@ -41,38 +41,12 @@ public class Canvas extends JPanel implements Serializable {
   }
 
   public void clean() {
-    this.logicBoard.clean();
+    logicBoard.clean();
     repaint();
   }
 
   public void newFile() {
     this.clean();
-  }
-
-  public void saveFile() {
-    String filename = "Diagram";
-    try {
-      ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
-      out.writeObject(logicBoard);
-      out.close();
-      System.out.println("Save drawing to " + filename);
-    } catch (IOException e) {
-      System.out.println("Unable to write file: " + filename);
-    }
-  }
-
-  public void openFile() {
-    String filename = "Diagram";
-    try {
-      ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
-      logicBoard = (LogicBoard) in.readObject();
-      in.close();
-      repaint();
-    } catch (IOException e1) {
-      System.out.println("Unable to open file: " + filename);
-    } catch (ClassNotFoundException e2) {
-      System.out.println(e2);
-    }
   }
 
   public void undo() {
@@ -121,5 +95,9 @@ public class Canvas extends JPanel implements Serializable {
 
       ((Shape) connector.getRelation()).addPoints(new Point(x1, y1), new Point(x2, y2)).draw(graphics);
     });
+  }
+
+  public void updateLogicBoard(LogicBoard logicBoard) {
+    this.logicBoard = logicBoard;
   }
 }

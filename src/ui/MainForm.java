@@ -107,7 +107,7 @@ public class MainForm extends JFrame {
         if (currentFilename == null) {
             currentFilename = "Untitled";
         }
-        setTitle("Scribble Pad [" + currentFilename + "]");
+        setTitle("Class graphic [" + currentFilename + "]");
         try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(currentFilename));
             out.writeObject(logicBoard);

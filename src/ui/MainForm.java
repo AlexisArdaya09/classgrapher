@@ -3,11 +3,7 @@ package ui;
 import core.LogicBoard;
 import core.Tool;
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.Arrays;
 import javax.swing.*;
 import ui.canvas.Canvas;
@@ -21,6 +17,8 @@ public class MainForm extends JFrame {
     private JMenuBar menuBar;
     private JComponent toolbar;
     private Canvas canvas;
+    private JFileChooser chooser = new JFileChooser(".");
+    private String currentFilename = null;
 
     private LogicBoard logicBoard = new LogicBoard();
 
@@ -56,7 +54,7 @@ public class MainForm extends JFrame {
                                 MenuBar.getMenuItem("New", e -> canvas.newFile()),
                                 MenuBar.getMenuItem("Save", e -> saveFile()),
                                 MenuBar.getMenuItem("Open", e -> {
-                                    openFile();
+                                    openFileChooser();
                                     canvas.updateLogicBoard(logicBoard);
                                     canvas.repaint();
                                 })
@@ -106,19 +104,35 @@ public class MainForm extends JFrame {
     }
 
     public void saveFile() {
-        String filename = "Diagram";
+        if (currentFilename == null) {
+            currentFilename = "Untitled";
+        }
+        setTitle("Scribble Pad [" + currentFilename + "]");
         try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(currentFilename));
             out.writeObject(logicBoard);
             out.close();
-            System.out.println("Save drawing to " + filename);
+            System.out.println("Save drawing to " + currentFilename);
         } catch (IOException e) {
-            System.out.println("Unable to write file: " + filename);
+            System.out.println("Unable to write file: " + currentFilename);
         }
     }
 
-    public void openFile() {
-        String filename = "Diagram";
+    public void openFileChooser() {
+        int retval = chooser.showDialog(null, "Open");
+        if (retval == JFileChooser.APPROVE_OPTION) {
+            File theFile = chooser.getSelectedFile();
+            if (theFile != null) {
+                if (theFile.isFile()) {
+                    String filename = chooser.getSelectedFile().getAbsolutePath();
+                    openFile(filename);
+                }
+            }
+        }
+    }
+
+    public void openFile(String filename){
+        currentFilename = filename;
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
             logicBoard = (LogicBoard) in.readObject();

@@ -3,9 +3,11 @@ package core;
 import core.exception.ConnectorException;
 import entities.classes.BaseClass;
 import entities.relations.Relation;
+
+import java.io.Serializable;
 import java.util.Optional;
 
-public class Connector {
+public class Connector implements Serializable {
   private BaseClass classA;
   private BaseClass classB;
   private Relation relation;

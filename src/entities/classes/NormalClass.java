@@ -2,10 +2,11 @@ package entities.classes;
 
 import core.Point;
 import java.awt.*;
+import java.io.Serializable;
 import java.util.Optional;
 import core.Shape;
 
-public class NormalClass extends BaseClass implements Shape {
+public class NormalClass extends BaseClass implements Shape, Serializable {
 
   public NormalClass(String title, Point pointOne, Point pointTwo) {
     this.title = title;

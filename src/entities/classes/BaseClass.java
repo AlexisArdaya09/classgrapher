@@ -3,16 +3,20 @@ package entities.classes;
 import core.Point;
 import core.Tool;
 import core.exception.CanNotBeCreatedException;
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class BaseClass {
+public abstract class BaseClass implements Serializable {
   protected String id = UUID.randomUUID().toString();
   protected String title;
   protected Point pointOne;
   protected Point pointTwo;
   int DEFAULT_WIDTH = 100;
   int DEFAULT_HIGH = 50;
+
+  public BaseClass() {
+  }
 
   public Point getPointOne() {
     return this.pointOne;

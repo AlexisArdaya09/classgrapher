@@ -3,6 +3,7 @@ package ui;
 import core.LogicBoard;
 import core.Tool;
 import java.awt.*;
+import java.io.*;
 import java.util.Arrays;
 import javax.swing.*;
 import ui.canvas.Canvas;
@@ -16,13 +17,13 @@ public class MainForm extends JFrame {
     private JMenuBar menuBar;
     private JComponent toolbar;
     private Canvas canvas;
+    private JFileChooser chooser = new JFileChooser(".");
+    private String currentFilename = null;
 
-    private LogicBoard logicBoard;
+    private LogicBoard logicBoard = new LogicBoard();
 
     public MainForm(String title) throws HeadlessException {
         super(title);
-        this.logicBoard = new LogicBoard();
-
         this.menuBar = this.createMenuBar();
         this.toolbar = this.createToolBar();
         this.logicBoard.currentTool = Tool.ANY;
@@ -50,13 +51,24 @@ public class MainForm extends JFrame {
         return MenuBar.getMenuBar(Arrays.asList(
                 MenuBar.getMenu("File",
                         Arrays.asList(
-                                MenuBar.getMenuItem("Nuevo", e -> canvas.clean())
+                                MenuBar.getMenuItem("New", e -> canvas.newFile()),
+                                MenuBar.getMenuItem("Save", e -> saveFile()),
+                                MenuBar.getMenuItem("Open", e -> {
+                                    openFileChooser();
+                                    canvas.updateLogicBoard(logicBoard);
+                                    canvas.repaint();
+                                })
                         )
                 ),
                 MenuBar.getMenu("Edit",
                         Arrays.asList(
                                 MenuBar.getMenuItem("Undo", e -> canvas.undo()),
                                 MenuBar.getMenuItem("Redo", e -> canvas.redo())
+                        )
+                ),
+                MenuBar.getMenu("About",
+                        Arrays.asList(
+                                MenuBar.getMenuItem("About", e -> canvas.about())
                         )
                 )
         ));
@@ -89,5 +101,46 @@ public class MainForm extends JFrame {
                         e -> logicBoard.currentTool = logicBoard.currentTool == Tool.COMPOSITION_RELATION
                                 ? Tool.ANY : Tool.COMPOSITION_RELATION)
         ));
+    }
+
+    public void saveFile() {
+        if (currentFilename == null) {
+            currentFilename = "Untitled";
+        }
+        setTitle("Class graphic [" + currentFilename + "]");
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(currentFilename));
+            out.writeObject(logicBoard);
+            out.close();
+            System.out.println("Save drawing to " + currentFilename);
+        } catch (IOException e) {
+            System.out.println("Unable to write file: " + currentFilename);
+        }
+    }
+
+    public void openFileChooser() {
+        int retval = chooser.showDialog(null, "Open");
+        if (retval == JFileChooser.APPROVE_OPTION) {
+            File theFile = chooser.getSelectedFile();
+            if (theFile != null) {
+                if (theFile.isFile()) {
+                    String filename = chooser.getSelectedFile().getAbsolutePath();
+                    openFile(filename);
+                }
+            }
+        }
+    }
+
+    public void openFile(String filename){
+        currentFilename = filename;
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
+            logicBoard = (LogicBoard) in.readObject();
+            in.close();
+        } catch (IOException e1) {
+            System.out.println("Unable to open file: " + filename);
+        } catch (ClassNotFoundException e2) {
+            System.out.println(e2);
+        }
     }
 }

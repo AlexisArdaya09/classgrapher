@@ -3,10 +3,10 @@ package entities.relations;
 import core.Point;
 import core.Tool;
 import core.exception.CanNotBeCreatedException;
-
+import java.io.Serializable;
 import java.util.UUID;
 
-public abstract class Relation {
+public abstract class Relation implements Serializable {
   protected String id = UUID.randomUUID().toString();
   protected Point pointOne;
   protected Point pointTwo;

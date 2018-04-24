@@ -12,10 +12,6 @@ class AggregationRelation extends Relation implements Shape {
     super();
   }
 
-  public AggregationRelation(Point pointOne, Point pointTwo) {
-    super(pointOne, pointTwo);
-  }
-
   @Override
   public String getId() {
     return id;

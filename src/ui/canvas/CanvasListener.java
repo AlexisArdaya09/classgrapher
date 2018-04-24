@@ -90,15 +90,19 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
       java.awt.Point point = e.getPoint();
       currentShape = canvas.getShape(new Point(point.x, point.y));
       currentShape.ifPresent(cs -> {
-        canvas.logicBoard.shapes = canvas.logicBoard.shapes.stream().map(s -> {
-          if (s.getId().equals(cs.getId())) {
-            return (Shape) ((BaseClass) s).setTitle(FormInput.getNameFromInput());
-          }
-          return s;
-        }).collect(Collectors.toList());
+        canvas.logicBoard.shapes = getCollectShapes(cs);
         canvas.repaint();
       });
     }
+  }
+
+  public List<Shape> getCollectShapes(Shape cs) {
+    return canvas.logicBoard.shapes.stream().map(s -> {
+      if (s.getId().equals(cs.getId())) {
+        return (Shape) ((BaseClass) s).setTitle(FormInput.getNameFromInput());
+      }
+      return s;
+    }).collect(Collectors.toList());
   }
 
   private void execRelation(java.awt.Point point) {

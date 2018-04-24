@@ -7,11 +7,11 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public abstract class Relation implements Serializable {
-  protected String id = UUID.randomUUID().toString();
-  protected Point pointOne;
-  protected Point pointTwo;
-  protected final int ARROW_LENGTH = 20;
-  protected final int ARROW_ANGLE = 25;
+  String id = UUID.randomUUID().toString();
+  Point pointOne;
+  Point pointTwo;
+  final int ARROW_LENGTH = 20;
+  final int ARROW_ANGLE = 25;
 
   public Relation() {
     this.pointOne = new Point(0, 0);

@@ -13,10 +13,6 @@ public class InheritRelation extends Relation implements Shape {
     super();
   }
 
-  public InheritRelation(Point pointOne, Point pointTwo) {
-    super(pointOne, pointTwo);
-  }
-
   @Override
   public String getId() {
     return id;
@@ -28,10 +24,10 @@ public class InheritRelation extends Relation implements Shape {
     GeneralPath path = new GeneralPath();
     path.moveTo(pointTwo.x, pointTwo.y);
 
-    Point pointA = calculatePointsArrow(pointTwo, ARROW_LENGTH, getAngle() - Math
+    Point pointA = calculatePointsArrow(pointTwo, getAngle() - Math
         .toRadians(ARROW_ANGLE));
 
-    Point pointB = calculatePointsArrow(pointTwo, ARROW_LENGTH, getAngle() + Math
+    Point pointB = calculatePointsArrow(pointTwo, getAngle() + Math
         .toRadians(ARROW_ANGLE));
 
     path.lineTo(pointA.x, pointA.y);

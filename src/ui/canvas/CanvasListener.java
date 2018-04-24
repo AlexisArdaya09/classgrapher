@@ -18,6 +18,7 @@ import ui.forms.FormInput;
 import core.Shape;
 
 public class CanvasListener implements MouseListener, MouseMotionListener {
+  private static final int double_click = 2;
   private Canvas canvas;
   private Optional<Shape> currentShape = Optional.empty();
   private Tool currentRelation = Tool.RELATION;
@@ -36,12 +37,13 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
       return;
     }
 
-    currentShape = canvas.getShape(new Point(point.x, point.y));
+    Point pointPressed = new Point(point.x, point.y);
+    currentShape = canvas.getShape(pointPressed);
 
     if (!currentShape.isPresent() && ToolUtils.isToolClass(canvas.logicBoard.currentTool)) {
       try {
-        canvas.logicBoard.shapes.add((Shape) BaseClass.getNewBaseClass(canvas.logicBoard.currentTool,
-            FormInput.getNameFromInput(), new Point(point.x, point.y)));
+        Shape newShape = createNewShape(pointPressed);
+        canvas.logicBoard.shapes.add(newShape);
         canvas.logicBoard.currentTool = Tool.ANY;
         canvas.repaint();
       } catch (CanNotBeCreatedException e1) {
@@ -50,83 +52,113 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
     }
   }
 
-  @Override
+  private Shape createNewShape(Point pointPressed) throws CanNotBeCreatedException {
+      String shapeName = FormInput.getNameFromInput();
+      return (Shape) BaseClass.getNewBaseClass(canvas.logicBoard.currentTool, shapeName, pointPressed);
+  }
+
+    @Override
   public void mouseReleased(MouseEvent e) {
-    if (canvas.logicBoard.currentTool != Tool.RELATION && canvas.logicBoard.currentTool != Tool.INHERIT_RELATION && canvas.logicBoard.currentTool != Tool.INTERFACE_RELATION
-            && canvas.logicBoard.currentTool != Tool.AGGREGATION_RELATION && canvas.logicBoard.currentTool != Tool.COMPOSITION_RELATION) {
+      boolean isToolRelation = canvas.logicBoard.currentTool == Tool.RELATION;
+      boolean isToolInheritRelation = canvas.logicBoard.currentTool == Tool.INHERIT_RELATION;
+      boolean isToolInterfaceRelation = canvas.logicBoard.currentTool == Tool.INTERFACE_RELATION;
+      boolean isToolAggregationRelation = canvas.logicBoard.currentTool == Tool.AGGREGATION_RELATION;
+      boolean isToolCompositionRelation = canvas.logicBoard.currentTool == Tool.COMPOSITION_RELATION;
+      if (!isToolRelation && !isToolInheritRelation && !isToolInterfaceRelation
+            && !isToolAggregationRelation && !isToolCompositionRelation) {
       currentShape = Optional.empty();
     }
   }
 
   @Override
   public void mouseDragged(MouseEvent e) {
-    java.awt.Point p = e.getPoint();
+    java.awt.Point point = e.getPoint();
     List<Shape> shapes = canvas.logicBoard.shapes;
-    currentShape.ifPresent(shape ->
-        canvas.logicBoard.shapes = shapes.stream().map(s -> {
-          if (s.getId().equals(shape.getId())) {
+    currentShape.ifPresent(currentShape ->
+        canvas.logicBoard.shapes = shapes.stream().map(shape -> {
+          if (shape.getId().equals(currentShape.getId())) {
             try {
-              s.addPoint(new Point(p.x, p.y));
+              shape.addPoint(new Point(point.x, point.y));
 
             } catch (Exception ea){
               System.out.print(ea.getMessage());
             }
-            return s;
+            return shape;
           }
-          return s;
+          return shape;
         }).collect(Collectors.toList()));
     canvas.repaint();
   }
 
   @Override
   public void mouseClicked(MouseEvent e) {
-    if (e.getClickCount() == 2) {
+    if (e.getClickCount() == double_click) {
       java.awt.Point point = e.getPoint();
       currentShape = canvas.getShape(new Point(point.x, point.y));
       currentShape.ifPresent(cs -> {
-        canvas.logicBoard.shapes = canvas.logicBoard.shapes.stream().map(s -> {
-          if (s.getId().equals(cs.getId())) {
-            return (Shape) ((BaseClass) s).setTitle(FormInput.getNameFromInput());
-          }
-          return s;
-        }).collect(Collectors.toList());
+        canvas.logicBoard.shapes = getCollectShapes(cs);
         canvas.repaint();
       });
     }
+  }
+
+  public List<Shape> getCollectShapes(Shape cs) {
+    return canvas.logicBoard.shapes.stream().map(s -> {
+      if (s.getId().equals(cs.getId())) {
+        return (Shape) ((BaseClass) s).setTitle(FormInput.getNameFromInput());
+      }
+      return s;
+    }).collect(Collectors.toList());
   }
 
   private void execRelation(java.awt.Point point) {
-    if (selection == 0) {
-      currentRelation = canvas.logicBoard.currentTool;
-      canvas.getShape(new Point(point.x, point.y)).ifPresent(shape -> {
-        currentShape = Optional.of(shape);
-        selection++;
-      });
+    if (isOriginClassSelected()) {
+        markOriginClassAsCurrentShape(point);
       return;
     }
-    if (selection == 1) {
-      canvas.getShape(new Point(point.x, point.y)).ifPresent(shape -> {
-        try {
-          Connector connector;
-          connector = new Connector(
-              (BaseClass) currentShape.get(),
-              (BaseClass) shape,
-              Relation.getNewRelation(currentRelation));
-
-          canvas.logicBoard.addConnector(connector);
-          canvas.logicBoard.shapes.add((Shape) connector.getRelation());
-        } catch (ConnectorException | CanNotBeCreatedException e1) {
-          e1.printStackTrace();
-        }
-
-        selection = 0;
-        canvas.logicBoard.currentTool = Tool.ANY;
-        canvas.repaint();
-      });
+    if (isTargetClassSelected()) {
+        createConnectorToTargetClass(point);
     }
   }
 
-  @Override
+    private void createConnectorToTargetClass(java.awt.Point point) {
+        canvas.getShape(new Point(point.x, point.y)).ifPresent(shape -> {
+          try {
+            Connector connector;
+            connector = new Connector(
+                (BaseClass) currentShape.get(),
+                (BaseClass) shape,
+                Relation.getNewRelation(currentRelation));
+
+            canvas.logicBoard.addConnector(connector);
+            canvas.logicBoard.shapes.add((Shape) connector.getRelation());
+          } catch (ConnectorException | CanNotBeCreatedException e1) {
+            e1.printStackTrace();
+          }
+
+          selection = 0;
+          canvas.logicBoard.currentTool = Tool.ANY;
+          canvas.repaint();
+        });
+    }
+
+    private void markOriginClassAsCurrentShape(java.awt.Point point) {
+        currentRelation = canvas.logicBoard.currentTool;
+        canvas.getShape(new Point(point.x, point.y)).ifPresent(shape -> {
+          currentShape = Optional.of(shape);
+          selection++;
+        });
+    }
+
+    private boolean isTargetClassSelected() {
+        return selection == 1;
+    }
+
+    private boolean isOriginClassSelected() {
+        return selection == 0;
+    }
+
+    @Override
   public void mouseEntered(MouseEvent e) {}
 
   @Override

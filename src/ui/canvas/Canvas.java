@@ -1,10 +1,10 @@
 package ui.canvas;
 
+import core.Connector;
 import core.LogicBoard;
 import core.Point;
 import core.Shape;
 import entities.classes.BaseClass;
-import entities.relations.Relation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,12 +28,16 @@ public class Canvas extends JPanel implements Serializable {
 
   public void paint(Graphics graphics) {
     Dimension dimension = this.getSize();
+    graphics = prepareGraphics(graphics, dimension);
+    paintShapes(graphics);
+    paintConectors(graphics);
+  }
+
+  public Graphics prepareGraphics(Graphics graphics, Dimension dimension) {
     graphics.setColor(Color.white);
     graphics.fillRect(0, 0, dimension.width, dimension.height);
     graphics.setColor(Color.black);
-
-    paintShapes(graphics);
-    paintConectors(graphics);
+    return graphics;
   }
 
   public Optional<Shape> getShape(Point point) {
@@ -70,31 +74,36 @@ public class Canvas extends JPanel implements Serializable {
   }
 
   private void paintShapes(Graphics graphics) {
-    logicBoard.shapes.stream().filter(v -> Optional.ofNullable(v).isPresent()
-            && !v.getClass().isInstance(Relation.class))
-            .forEach(shape -> shape.draw(graphics));
+    logicBoard.shapes.forEach(shape -> shape.draw(graphics));
   }
 
   private void paintConectors(Graphics graphics) {
     logicBoard.connectors.forEach(connector -> {
-      BaseClass baseClassA = logicBoard.shapes.stream().filter(s -> s.getId().equals(((Shape) connector
-              .getClassA())
-              .getId())).map(s -> (BaseClass) s).findFirst().get();
+      BaseClass baseClassA = getBaseClassA(connector);
+      BaseClass baseClassB = getBaseClassB(connector);
 
-      BaseClass baseClassB = logicBoard.shapes.stream().filter(s -> s.getId().equals(((Shape) connector
-              .getClassB())
-              .getId())).map(s -> (BaseClass) s).findFirst().get();
-
-      int x1 = baseClassA.getPointOne().x
-              + ((Math.abs(baseClassA.getPointTwo().x - baseClassA.getPointOne().x)) / 2);
+      int x1 = baseClassA.getPointOne().x + getMiddlePoint(baseClassA);
       int y1 = baseClassA.getPointOne().y;
 
-      int x2 = baseClassB.getPointOne().x
-              + ((Math.abs(baseClassB.getPointTwo().x - baseClassB.getPointOne().x)) / 2);
+      int x2 = baseClassB.getPointOne().x + (getMiddlePoint(baseClassB));
       int y2 = baseClassB.getPointOne().y;
 
       ((Shape) connector.getRelation()).addPoints(new Point(x1, y1), new Point(x2, y2)).draw(graphics);
     });
+  }
+
+  private BaseClass getBaseClassB(Connector connector) {
+    return logicBoard.shapes.stream().filter(s -> s.getId().equals(((Shape) connector.getClassB())
+            .getId())).map(s -> (BaseClass) s).findFirst().get();
+  }
+
+  private BaseClass getBaseClassA(Connector connector) {
+    return logicBoard.shapes.stream().filter(s -> s.getId().equals(((Shape) connector.getClassA())
+            .getId())).map(s -> (BaseClass) s).findFirst().get();
+  }
+
+  private int getMiddlePoint(BaseClass baseClass) {
+    return (Math.abs(baseClass.getPointTwo().x - baseClass.getPointOne().x)) / 2;
   }
 
   public void updateLogicBoard(LogicBoard logicBoard) {

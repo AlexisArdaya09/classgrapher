@@ -66,20 +66,20 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
 
   @Override
   public void mouseDragged(MouseEvent e) {
-    java.awt.Point p = e.getPoint();
+    java.awt.Point point = e.getPoint();
     List<Shape> shapes = canvas.logicBoard.shapes;
-    currentShape.ifPresent(shape ->
-        canvas.logicBoard.shapes = shapes.stream().map(s -> {
-          if (s.getId().equals(shape.getId())) {
+    currentShape.ifPresent(currentShape ->
+        canvas.logicBoard.shapes = shapes.stream().map(shape -> {
+          if (shape.getId().equals(currentShape.getId())) {
             try {
-              s.addPoint(new Point(p.x, p.y));
+              shape.addPoint(new Point(point.x, point.y));
 
             } catch (Exception ea){
               System.out.print(ea.getMessage());
             }
-            return s;
+            return shape;
           }
-          return s;
+          return shape;
         }).collect(Collectors.toList()));
     canvas.repaint();
   }

@@ -86,16 +86,18 @@ public class Canvas extends JPanel implements Serializable {
               .getClassB())
               .getId())).map(s -> (BaseClass) s).findFirst().get();
 
-      int x1 = baseClassA.getPointOne().x
-              + ((Math.abs(baseClassA.getPointTwo().x - baseClassA.getPointOne().x)) / 2);
+      int x1 = baseClassA.getPointOne().x + getMiddlePoint(baseClassA);
       int y1 = baseClassA.getPointOne().y;
 
-      int x2 = baseClassB.getPointOne().x
-              + ((Math.abs(baseClassB.getPointTwo().x - baseClassB.getPointOne().x)) / 2);
+      int x2 = baseClassB.getPointOne().x + (getMiddlePoint(baseClassB));
       int y2 = baseClassB.getPointOne().y;
 
       ((Shape) connector.getRelation()).addPoints(new Point(x1, y1), new Point(x2, y2)).draw(graphics);
     });
+  }
+
+  private int getMiddlePoint(BaseClass baseClass) {
+    return (Math.abs(baseClass.getPointTwo().x - baseClass.getPointOne().x)) / 2;
   }
 
   public void updateLogicBoard(LogicBoard logicBoard) {

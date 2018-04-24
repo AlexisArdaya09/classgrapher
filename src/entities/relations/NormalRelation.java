@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class NormalRelation extends Relation implements Shape {
 
-  public NormalRelation() {
+  NormalRelation() {
     super();
   }
 

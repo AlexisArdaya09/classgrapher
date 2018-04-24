@@ -46,9 +46,9 @@ public abstract class Relation implements Serializable {
     return px < 0 ? Math.atan(py / px) + Math.PI : Math.atan(py / px);
   }
 
-  protected Point calculatePointsArrow(Point point, int arrowLength, double angleLine) {
-    long px = (long) (point.x + arrowLength * Math.cos(angleLine));
-    long py = (long) (point.y - arrowLength * Math.sin(angleLine));
+  protected Point calculatePointsArrow(Point point, double angleLine) {
+    long px = (long) (point.x + ARROW_LENGTH * Math.cos(angleLine));
+    long py = (long) (point.y - ARROW_LENGTH * Math.sin(angleLine));
     return new Point(Math.round(px), Math.round(py));
   }
 }

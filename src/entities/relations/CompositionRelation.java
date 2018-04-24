@@ -24,9 +24,9 @@ public class CompositionRelation extends Relation implements Shape {
   public void draw(Graphics graphics) {
     graphics.drawLine(pointOne.x, pointOne.y, pointTwo.x, pointTwo.y);
 
-    Point point1 = calculatePointsArrow(pointTwo, ARROW_LENGTH, getAngle() - Math.toRadians(ARROW_ANGLE));
-    Point point2 = calculatePointsArrow(pointTwo, ARROW_LENGTH, getAngle() + Math.toRadians(ARROW_ANGLE));
-    Point point3 = calculatePointsArrow(point1, ARROW_LENGTH, getAngle() - Math.toRadians(-ARROW_ANGLE));
+    Point point1 = calculatePointsArrow(pointTwo, getAngle() - Math.toRadians(ARROW_ANGLE));
+    Point point2 = calculatePointsArrow(pointTwo, getAngle() + Math.toRadians(ARROW_ANGLE));
+    Point point3 = calculatePointsArrow(point1, getAngle() - Math.toRadians(-ARROW_ANGLE));
 
     Polygon polygon = new Polygon();
     graphics.setColor(Color.white);

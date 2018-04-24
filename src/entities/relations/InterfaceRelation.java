@@ -34,10 +34,10 @@ public class InterfaceRelation extends Relation implements Shape {
     graphics2D.setStroke(new BasicStroke(1));
     GeneralPath path = new GeneralPath();
     path.moveTo(pointTwo.x, pointTwo.y);
-    Point pointA = calculatePointsArrow(pointTwo, ARROW_LENGTH, getAngle() - Math
+    Point pointA = calculatePointsArrow(pointTwo, getAngle() - Math
         .toRadians(ARROW_ANGLE));
 
-    Point pointB = calculatePointsArrow(pointTwo, ARROW_LENGTH, getAngle() + Math
+    Point pointB = calculatePointsArrow(pointTwo, getAngle() + Math
         .toRadians(ARROW_ANGLE));
 
     path.lineTo(pointA.x, pointA.y);

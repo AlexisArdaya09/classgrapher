@@ -36,12 +36,13 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
       return;
     }
 
-    currentShape = canvas.getShape(new Point(point.x, point.y));
+    Point pointPressed = new Point(point.x, point.y);
+    currentShape = canvas.getShape(pointPressed);
 
     if (!currentShape.isPresent() && ToolUtils.isToolClass(canvas.logicBoard.currentTool)) {
       try {
-        canvas.logicBoard.shapes.add((Shape) BaseClass.getNewBaseClass(canvas.logicBoard.currentTool,
-            FormInput.getNameFromInput(), new Point(point.x, point.y)));
+        Shape newShape = createNewShape(pointPressed);
+        canvas.logicBoard.shapes.add(newShape);
         canvas.logicBoard.currentTool = Tool.ANY;
         canvas.repaint();
       } catch (CanNotBeCreatedException e1) {
@@ -50,7 +51,12 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
     }
   }
 
-  @Override
+  private Shape createNewShape(Point pointPressed) throws CanNotBeCreatedException {
+      String shapeName = FormInput.getNameFromInput();
+      return (Shape) BaseClass.getNewBaseClass(canvas.logicBoard.currentTool, shapeName, pointPressed);
+  }
+
+    @Override
   public void mouseReleased(MouseEvent e) {
     if (canvas.logicBoard.currentTool != Tool.RELATION && canvas.logicBoard.currentTool != Tool.INHERIT_RELATION && canvas.logicBoard.currentTool != Tool.INTERFACE_RELATION
             && canvas.logicBoard.currentTool != Tool.AGGREGATION_RELATION && canvas.logicBoard.currentTool != Tool.COMPOSITION_RELATION) {

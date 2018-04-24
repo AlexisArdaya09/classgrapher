@@ -5,6 +5,8 @@ import core.Tool;
 import java.awt.*;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import javax.swing.*;
 import ui.canvas.Canvas;
 import ui.menu.menubar.MenuBar;
@@ -49,29 +51,41 @@ public class MainForm extends JFrame {
 
     private JMenuBar createMenuBar() {
         return MenuBar.getMenuBar(Arrays.asList(
-                MenuBar.getMenu("File",
-                        Arrays.asList(
-                                MenuBar.getMenuItem("New", e -> canvas.newFile()),
-                                MenuBar.getMenuItem("Save", e -> saveFile()),
-                                MenuBar.getMenuItem("Open", e -> {
-                                    openFileChooser();
-                                    canvas.updateLogicBoard(logicBoard);
-                                    canvas.repaint();
-                                })
-                        )
-                ),
-                MenuBar.getMenu("Edit",
-                        Arrays.asList(
-                                MenuBar.getMenuItem("Undo", e -> canvas.undo()),
-                                MenuBar.getMenuItem("Redo", e -> canvas.redo())
-                        )
-                ),
-                MenuBar.getMenu("About",
-                        Arrays.asList(
-                                MenuBar.getMenuItem("About", e -> canvas.about())
-                        )
-                )
+                getFileMenu("File", getFileMenuItems()),
+                getFileMenu("Edit", getEditMenuItems()),
+                getFileMenu("About", getAboutMenuItems())
         ));
+    }
+
+    private JMenu getFileMenu(String file, List<JMenuItem> fileMenuItems) {
+        return MenuBar.getMenu(file,
+                fileMenuItems
+        );
+    }
+
+    private List<JMenuItem> getAboutMenuItems() {
+        return Collections.singletonList(
+                MenuBar.getMenuItem("About", e -> canvas.about())
+        );
+    }
+
+    private List<JMenuItem> getEditMenuItems() {
+        return Arrays.asList(
+                MenuBar.getMenuItem("Undo", e -> canvas.undo()),
+                MenuBar.getMenuItem("Redo", e -> canvas.redo())
+        );
+    }
+
+    private List<JMenuItem> getFileMenuItems() {
+        return Arrays.asList(
+                MenuBar.getMenuItem("New", e -> canvas.newFile()),
+                MenuBar.getMenuItem("Save", e -> saveFile()),
+                MenuBar.getMenuItem("Open", e -> {
+                    openFileChooser();
+                    canvas.updateLogicBoard(logicBoard);
+                    canvas.repaint();
+                })
+        );
     }
 
     private JComponent createToolBar() {

@@ -28,12 +28,16 @@ public class Canvas extends JPanel implements Serializable {
 
   public void paint(Graphics graphics) {
     Dimension dimension = this.getSize();
+    graphics = prepareGraphics(graphics, dimension);
+    paintShapes(graphics);
+    paintConectors(graphics);
+  }
+
+  public Graphics prepareGraphics(Graphics graphics, Dimension dimension) {
     graphics.setColor(Color.white);
     graphics.fillRect(0, 0, dimension.width, dimension.height);
     graphics.setColor(Color.black);
-
-    paintShapes(graphics);
-    paintConectors(graphics);
+    return graphics;
   }
 
   public Optional<Shape> getShape(Point point) {

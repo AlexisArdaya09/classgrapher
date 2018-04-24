@@ -1,5 +1,6 @@
 package ui.canvas;
 
+import core.Connector;
 import core.LogicBoard;
 import core.Point;
 import core.Shape;
@@ -78,13 +79,8 @@ public class Canvas extends JPanel implements Serializable {
 
   private void paintConectors(Graphics graphics) {
     logicBoard.connectors.forEach(connector -> {
-      BaseClass baseClassA = logicBoard.shapes.stream().filter(s -> s.getId().equals(((Shape) connector
-              .getClassA())
-              .getId())).map(s -> (BaseClass) s).findFirst().get();
-
-      BaseClass baseClassB = logicBoard.shapes.stream().filter(s -> s.getId().equals(((Shape) connector
-              .getClassB())
-              .getId())).map(s -> (BaseClass) s).findFirst().get();
+      BaseClass baseClassA = getBaseClassA(connector);
+      BaseClass baseClassB = getBaseClassB(connector);
 
       int x1 = baseClassA.getPointOne().x + getMiddlePoint(baseClassA);
       int y1 = baseClassA.getPointOne().y;
@@ -94,6 +90,16 @@ public class Canvas extends JPanel implements Serializable {
 
       ((Shape) connector.getRelation()).addPoints(new Point(x1, y1), new Point(x2, y2)).draw(graphics);
     });
+  }
+
+  private BaseClass getBaseClassB(Connector connector) {
+    return logicBoard.shapes.stream().filter(s -> s.getId().equals(((Shape) connector.getClassB())
+            .getId())).map(s -> (BaseClass) s).findFirst().get();
+  }
+
+  private BaseClass getBaseClassA(Connector connector) {
+    return logicBoard.shapes.stream().filter(s -> s.getId().equals(((Shape) connector.getClassA())
+            .getId())).map(s -> (BaseClass) s).findFirst().get();
   }
 
   private int getMiddlePoint(BaseClass baseClass) {

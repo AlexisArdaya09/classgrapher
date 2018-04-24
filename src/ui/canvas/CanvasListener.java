@@ -18,6 +18,7 @@ import ui.forms.FormInput;
 import core.Shape;
 
 public class CanvasListener implements MouseListener, MouseMotionListener {
+  private static final int double_click = 2;
   private Canvas canvas;
   private Optional<Shape> currentShape = Optional.empty();
   private Tool currentRelation = Tool.RELATION;
@@ -86,7 +87,7 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
 
   @Override
   public void mouseClicked(MouseEvent e) {
-    if (e.getClickCount() == 2) {
+    if (e.getClickCount() == double_click) {
       java.awt.Point point = e.getPoint();
       currentShape = canvas.getShape(new Point(point.x, point.y));
       currentShape.ifPresent(cs -> {

@@ -11,10 +11,6 @@ class CompositionRelation extends Relation implements Shape {
     super();
   }
 
-  public CompositionRelation(Point pointOne, Point pointTwo) {
-    super(pointOne, pointTwo);
-  }
-
   @Override
   public String getId() {
     return id;

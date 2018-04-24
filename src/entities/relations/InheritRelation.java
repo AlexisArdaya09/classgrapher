@@ -13,10 +13,6 @@ public class InheritRelation extends Relation implements Shape {
     super();
   }
 
-  public InheritRelation(Point pointOne, Point pointTwo) {
-    super(pointOne, pointTwo);
-  }
-
   @Override
   public String getId() {
     return id;

@@ -13,10 +13,6 @@ public class InterfaceRelation extends Relation implements Shape {
     super();
   }
 
-  public InterfaceRelation(Point pointOne, Point pointTwo) {
-    super(pointOne, pointTwo);
-  }
-
   @Override
   public String getId() {
     return id;

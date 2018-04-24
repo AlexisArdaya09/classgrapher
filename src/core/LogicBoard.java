@@ -31,7 +31,7 @@ public class LogicBoard implements Serializable {
     if (shapes.size() > 0){
       connectors = connectors.stream()
           .filter(c -> !((Shape) c.getRelation()).getId().equals(shapes.get(shapes.size() - 1).getId()))
-          .map(c -> c).collect(Collectors.toList());
+          .collect(Collectors.toList());
       deletedShapes.push(shapes.get(shapes.size() - 1));
       shapes.remove(shapes.size() - 1);
     }

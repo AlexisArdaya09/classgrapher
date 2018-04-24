@@ -7,18 +7,18 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public abstract class Relation implements Serializable {
-  String id = UUID.randomUUID().toString();
+  final String id = UUID.randomUUID().toString();
   Point pointOne;
   Point pointTwo;
-  final int ARROW_LENGTH = 20;
+  private final int ARROW_LENGTH = 20;
   final int ARROW_ANGLE = 25;
 
-  public Relation() {
+  Relation() {
     this.pointOne = new Point(0, 0);
     this.pointTwo = new Point(0, 0);
   }
 
-  public Relation(Point pointOne, Point pointTwo) {
+  Relation(Point pointOne, Point pointTwo) {
     this.pointOne = pointOne;
     this.pointTwo = pointTwo;
   }
@@ -40,13 +40,13 @@ public abstract class Relation implements Serializable {
     }
   }
 
-  public double getAngle() {
+  double getAngle() {
     double py = -(pointOne.y - pointTwo.y);
     double px = (pointOne.x - pointTwo.x);
     return px < 0 ? Math.atan(py / px) + Math.PI : Math.atan(py / px);
   }
 
-  protected Point calculatePointsArrow(Point point, double angleLine) {
+  Point calculatePointsArrow(Point point, double angleLine) {
     long px = (long) (point.x + ARROW_LENGTH * Math.cos(angleLine));
     long py = (long) (point.y - ARROW_LENGTH * Math.sin(angleLine));
     return new Point(Math.round(px), Math.round(py));

@@ -4,7 +4,6 @@ import core.LogicBoard;
 import core.Point;
 import core.Shape;
 import entities.classes.BaseClass;
-import entities.relations.Relation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,9 +73,7 @@ public class Canvas extends JPanel implements Serializable {
   }
 
   private void paintShapes(Graphics graphics) {
-    logicBoard.shapes.stream().filter(v -> Optional.ofNullable(v).isPresent()
-            && !v.getClass().isInstance(Relation.class))
-            .forEach(shape -> shape.draw(graphics));
+    logicBoard.shapes.forEach(shape -> shape.draw(graphics));
   }
 
   private void paintConectors(Graphics graphics) {

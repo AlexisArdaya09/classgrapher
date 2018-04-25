@@ -7,12 +7,6 @@ import core.Shape;
 
 public class InterfaceClass extends BaseClass implements Shape {
 
-  public InterfaceClass(String title, Point pointOne, Point pointTwo) {
-    this.title = title;
-    this.pointOne = pointOne;
-    this.pointTwo = pointTwo;
-  }
-
   public InterfaceClass(String title, Point pointOne) {
     this.title = title;
     this.pointOne = pointOne;

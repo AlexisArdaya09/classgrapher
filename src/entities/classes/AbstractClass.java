@@ -7,12 +7,6 @@ import core.Shape;
 
 public class AbstractClass extends BaseClass implements Shape {
 
-  public AbstractClass(String title, Point pointOne, Point pointTwo) {
-    this.title = title;
-    this.pointOne = pointOne;
-    this.pointTwo = pointTwo;
-  }
-
   public AbstractClass(String title, Point pointOne) {
     this.title = title;
     this.pointOne = pointOne;

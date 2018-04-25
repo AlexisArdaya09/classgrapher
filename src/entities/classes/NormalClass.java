@@ -8,12 +8,6 @@ import core.Shape;
 
 public class NormalClass extends BaseClass implements Shape, Serializable {
 
-  public NormalClass(String title, Point pointOne, Point pointTwo) {
-    this.title = title;
-    this.pointOne = pointOne;
-    this.pointTwo = pointTwo;
-  }
-
   public NormalClass(String title, Point pointOne) {
     this.title = title;
     this.pointOne = pointOne;

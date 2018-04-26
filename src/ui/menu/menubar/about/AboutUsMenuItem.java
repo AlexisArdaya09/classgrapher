@@ -4,8 +4,8 @@ import ui.MainForm;
 
 import javax.swing.*;
 
-class AboutUsMenuItem extends JMenuItem {
-    AboutUsMenuItem(MainForm mainForm) {
+public class AboutUsMenuItem extends JMenuItem {
+    public AboutUsMenuItem(MainForm mainForm) {
         super("About us");
         addActionListener(e -> mainForm.canvas.about());
     }

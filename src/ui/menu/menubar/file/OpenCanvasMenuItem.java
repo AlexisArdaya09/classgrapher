@@ -4,8 +4,8 @@ import ui.MainForm;
 
 import javax.swing.*;
 
-class OpenCanvasMenuItem extends JMenuItem {
-    OpenCanvasMenuItem(MainForm mainForm) {
+public class OpenCanvasMenuItem extends JMenuItem {
+    public OpenCanvasMenuItem(MainForm mainForm) {
         super("Open");
         addActionListener(e -> {
             mainForm.openFileChooser();

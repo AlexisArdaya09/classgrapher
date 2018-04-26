@@ -4,8 +4,8 @@ import ui.MainForm;
 
 import javax.swing.*;
 
-class UndoMenuItem extends JMenuItem {
-    UndoMenuItem(MainForm mainForm) {
+public class UndoMenuItem extends JMenuItem {
+    public UndoMenuItem(MainForm mainForm) {
         super("Undo");
         addActionListener(e -> mainForm.canvas.undo());
     }

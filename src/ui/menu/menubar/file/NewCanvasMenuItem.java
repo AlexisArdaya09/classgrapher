@@ -4,8 +4,8 @@ import ui.MainForm;
 
 import javax.swing.*;
 
-class NewCanvasMenuItem extends JMenuItem {
-    NewCanvasMenuItem(MainForm mainForm) {
+public class NewCanvasMenuItem extends JMenuItem {
+    public NewCanvasMenuItem(MainForm mainForm) {
         super("New");
         addActionListener(e -> mainForm.canvas.newFile());
     }

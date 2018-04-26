@@ -3,6 +3,7 @@ package ui;
 import core.LogicBoard;
 import core.Tool;
 import ui.canvas.Canvas;
+import ui.menu.menubar.MenuBar;
 import ui.menu.menubar.MenuBarCreator;
 import ui.menu.toolbar.ToolBar;
 
@@ -10,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class MainForm extends JFrame {
 
@@ -23,8 +26,8 @@ public class MainForm extends JFrame {
 
     public LogicBoard logicBoard = new LogicBoard();
 
-    private MainForm(String title) throws HeadlessException {
-        setTitle(title);
+    public MainForm(String title) throws HeadlessException {
+        super(title);
         MenuBarCreator menuBarCreator = new MenuBarCreator(this);
         this.menuBar = menuBarCreator.create();
         this.toolbar = this.createToolBar();
@@ -107,7 +110,7 @@ public class MainForm extends JFrame {
         }
     }
 
-    private void openFile(String filename) {
+    public void openFile(String filename) {
         currentFilename = filename;
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));

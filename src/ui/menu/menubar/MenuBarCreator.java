@@ -1,6 +1,9 @@
 package ui.menu.menubar;
 
 import ui.MainForm;
+import ui.menu.menubar.about.AboutMenu;
+import ui.menu.menubar.edit.EditMenu;
+import ui.menu.menubar.file.FileMenu;
 
 import javax.swing.*;
 
@@ -13,44 +16,10 @@ public class MenuBarCreator {
     }
 
     public JMenuBar create() {
-        JMenuItem newCanvas = new JMenuItem("New");
-        newCanvas.addActionListener(e -> mainForm.canvas.newFile());
-
-        JMenuItem saveCanvas = new JMenuItem("Save");
-        saveCanvas.addActionListener(e -> mainForm.saveFile());
-
-        JMenuItem openCanvas = new JMenuItem("Open");
-        openCanvas.addActionListener(e -> {
-            mainForm.openFileChooser();
-            mainForm.canvas.updateLogicBoard(mainForm.logicBoard);
-            mainForm.canvas.repaint();
-
-        });
-
-        JMenu fileMenu = new JMenu("File");
-        fileMenu.add(newCanvas);
-        fileMenu.add(saveCanvas);
-        fileMenu.add(openCanvas);
-
-        JMenuItem undoDraw = new JMenuItem("Undo");
-        undoDraw.addActionListener(e -> mainForm.canvas.undo());
-        JMenuItem redoDraw = new JMenuItem("Redo");
-        redoDraw.addActionListener(e -> mainForm.canvas.redo());
-
-        JMenu editMenu = new JMenu("Edit");
-        editMenu.add(undoDraw);
-        editMenu.add(redoDraw);
-
-        JMenuItem aboutUs = new JMenuItem("About us");
-
-        JMenu aboutUsMenu = new JMenu("About us");
-        aboutUs.addActionListener(e -> mainForm.canvas.about());
-        aboutUsMenu.add(aboutUs);
-
         JMenuBar mainMenuBar = new JMenuBar();
-        mainMenuBar.add(fileMenu);
-        mainMenuBar.add(editMenu);
-        mainMenuBar.add(aboutUsMenu);
+        mainMenuBar.add(new FileMenu(mainForm));
+        mainMenuBar.add(new EditMenu(mainForm));
+        mainMenuBar.add(new AboutMenu(mainForm));
         return mainMenuBar;
     }
 }

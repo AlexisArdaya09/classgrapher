@@ -3,7 +3,6 @@ package ui;
 import core.LogicBoard;
 import core.Tool;
 import ui.canvas.Canvas;
-import ui.menu.menubar.MenuBar;
 import ui.menu.menubar.MenuBarCreator;
 import ui.menu.toolbar.ToolBar;
 
@@ -11,8 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class MainForm extends JFrame {
 

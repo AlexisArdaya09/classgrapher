@@ -21,4 +21,18 @@ public class CareTaker {
     public Memento redo() {
         return iterator < (statuses.size() - 1) ? statuses.get(++iterator) : null;
     }
+
+    public void add(Memento memento) {
+        iterator++;
+        while (iterator < statuses.size()) {
+            statuses.remove(iterator);
+        }
+        statuses.add(memento);
+    }
+
+    public void reset(Memento memento) {
+        statuses.clear();
+        iterator = -1;
+        add(memento);
+    }
 }

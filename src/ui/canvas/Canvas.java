@@ -49,8 +49,12 @@ public class Canvas extends JPanel implements Serializable {
 
   public void clean() {
     logicBoard.clean();
-    careTaker.add(logicBoard.getMemento());
+    careTaker.reset(logicBoard.getMemento());
     repaint();
+  }
+
+  public void addMemento() {
+    careTaker.add(logicBoard.getMemento());
   }
 
   public void newFile() {

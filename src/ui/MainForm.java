@@ -23,8 +23,8 @@ public class MainForm extends JFrame {
 
     public LogicBoard logicBoard = new LogicBoard();
 
-    public MainForm(String title) throws HeadlessException {
-        super(title);
+    private MainForm(String title) throws HeadlessException {
+        setTitle(title);
         MenuBarCreator menuBarCreator = new MenuBarCreator(this);
         this.menuBar = menuBarCreator.create();
         this.toolbar = this.createToolBar();
@@ -39,7 +39,7 @@ public class MainForm extends JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setLocation(screenSize.width / 2 - width / 2,
                 screenSize.height / 2 - height / 2);
-        frame.show();
+        frame.setVisible(true);
     }
 
     private void initForm() {
@@ -107,7 +107,7 @@ public class MainForm extends JFrame {
         }
     }
 
-    public void openFile(String filename) {
+    private void openFile(String filename) {
         currentFilename = filename;
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));

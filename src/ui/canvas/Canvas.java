@@ -8,7 +8,7 @@ import entities.classes.BaseClass;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
+import java.io.Serializable;
 import java.util.Optional;
 
 public class Canvas extends JPanel implements Serializable {
@@ -63,15 +63,20 @@ public class Canvas extends JPanel implements Serializable {
     repaint();
   }
 
-  public void about() {
-    JOptionPane.showMessageDialog(null,
-            "Class Graphic 0.1\n" +
-                    "Team: \n " +
-                    " - David Batista \n" +
-                    " - Alexis Ardaya \n" +
-                    " - Veronica Lopez", "About",
-            JOptionPane.INFORMATION_MESSAGE);
-  }
+    public void about() {
+        JOptionPane.showMessageDialog(null,
+                "Class Graphic 1.2\n" +
+                        "Original Team: \n " +
+                        " - David Batista \n" +
+                        " - Alexis Ardaya \n" +
+                        " - Veronica Lopez \n" +
+                        "Active Team \n" +
+                        " - Alexis Ardaya \n" +
+                        " - Wilson Crespo \n" +
+                        " - Gabriel Morales \n" +
+                        " - Liyina Veizaga \n", "About",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
 
   private void paintShapes(Graphics graphics) {
     logicBoard.shapes.forEach(shape -> shape.draw(graphics));

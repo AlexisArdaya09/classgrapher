@@ -2,15 +2,17 @@ package ui;
 
 import core.LogicBoard;
 import core.Tool;
+import ui.canvas.Canvas;
+import ui.menu.menubar.MenuBar;
+import ui.menu.menubar.MenuBarCreator;
+import ui.menu.toolbar.ToolBar;
+
+import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import javax.swing.*;
-import ui.canvas.Canvas;
-import ui.menu.menubar.MenuBar;
-import ui.menu.toolbar.ToolBar;
 
 public class MainForm extends JFrame {
 
@@ -18,15 +20,16 @@ public class MainForm extends JFrame {
     private static final int height = 800;
     private JMenuBar menuBar;
     private JComponent toolbar;
-    private Canvas canvas;
+    public Canvas canvas;
     private JFileChooser chooser = new JFileChooser(".");
     private String currentFilename = null;
 
-    private LogicBoard logicBoard = new LogicBoard();
+    public LogicBoard logicBoard = new LogicBoard();
 
     public MainForm(String title) throws HeadlessException {
         super(title);
-        this.menuBar = this.createMenuBar();
+        MenuBarCreator menuBarCreator = new MenuBarCreator(this);
+        this.menuBar = menuBarCreator.create();
         this.toolbar = this.createToolBar();
         this.logicBoard.currentTool = Tool.ANY;
         this.canvas = new Canvas(logicBoard);
@@ -145,7 +148,7 @@ public class MainForm extends JFrame {
         }
     }
 
-    public void openFile(String filename){
+    public void openFile(String filename) {
         currentFilename = filename;
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));

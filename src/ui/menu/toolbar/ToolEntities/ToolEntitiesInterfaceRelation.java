@@ -11,6 +11,6 @@ public class ToolEntitiesInterfaceRelation implements Entities {
     }
 
     public JButton prepareButtonClass(){
-        return toolEntities.prepareButtonInheritRelation();
+        return toolEntities.prepareButtonInterfaceRelation();
     }
 }

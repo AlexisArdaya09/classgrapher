@@ -18,7 +18,7 @@ public class Canvas extends JPanel implements Serializable {
   private CareTaker careTaker = new CareTaker();
 
   public Canvas(LogicBoard logicBoard) {
-    updateLogicBoard(logicBoard);
+    this.logicBoard = logicBoard;
     this.addListeners();
   }
 

@@ -2,15 +2,14 @@ package ui;
 
 import core.LogicBoard;
 import core.Tool;
+import ui.canvas.Canvas;
+import ui.menu.menubar.MenuBarCreator;
+import ui.menu.toolbar.ToolBar;
+
+import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import javax.swing.*;
-import ui.canvas.Canvas;
-import ui.menu.menubar.MenuBar;
-import ui.menu.toolbar.ToolBar;
 
 public class MainForm extends JFrame {
 
@@ -18,15 +17,16 @@ public class MainForm extends JFrame {
     private static final int height = 800;
     private JMenuBar menuBar;
     private JComponent toolbar;
-    private Canvas canvas;
+    public Canvas canvas;
     private JFileChooser chooser = new JFileChooser(".");
     private String currentFilename = null;
 
-    private LogicBoard logicBoard = new LogicBoard();
+    public LogicBoard logicBoard = new LogicBoard();
 
-    public MainForm(String title) throws HeadlessException {
-        super(title);
-        this.menuBar = this.createMenuBar();
+    private MainForm(String title) throws HeadlessException {
+        setTitle(title);
+        MenuBarCreator menuBarCreator = new MenuBarCreator(this);
+        this.menuBar = menuBarCreator.create();
         this.toolbar = this.createToolBar();
         this.logicBoard.currentTool = Tool.ANY;
         this.canvas = new Canvas(logicBoard);
@@ -39,7 +39,7 @@ public class MainForm extends JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setLocation(screenSize.width / 2 - width / 2,
                 screenSize.height / 2 - height / 2);
-        frame.show();
+        frame.setVisible(true);
     }
 
     private void initForm() {
@@ -49,44 +49,6 @@ public class MainForm extends JFrame {
         getContentPane().add(toolbar, BorderLayout.WEST);
     }
 
-    private JMenuBar createMenuBar() {
-        return MenuBar.getMenuBar(Arrays.asList(
-                getFileMenu("File", getFileMenuItems()),
-                getFileMenu("Edit", getEditMenuItems()),
-                getFileMenu("About", getAboutMenuItems())
-        ));
-    }
-
-    private JMenu getFileMenu(String file, List<JMenuItem> fileMenuItems) {
-        return MenuBar.getMenu(file,
-                fileMenuItems
-        );
-    }
-
-    private List<JMenuItem> getAboutMenuItems() {
-        return Collections.singletonList(
-                MenuBar.getMenuItem("About", e -> canvas.about())
-        );
-    }
-
-    private List<JMenuItem> getEditMenuItems() {
-        return Arrays.asList(
-                MenuBar.getMenuItem("Undo", e -> canvas.undo()),
-                MenuBar.getMenuItem("Redo", e -> canvas.redo())
-        );
-    }
-
-    private List<JMenuItem> getFileMenuItems() {
-        return Arrays.asList(
-                MenuBar.getMenuItem("New", e -> canvas.newFile()),
-                MenuBar.getMenuItem("Save", e -> saveFile()),
-                MenuBar.getMenuItem("Open", e -> {
-                    openFileChooser();
-                    canvas.updateLogicBoard(logicBoard);
-                    canvas.repaint();
-                })
-        );
-    }
 
     private JComponent createToolBar() {
         JButton buttonClass = ToolBar.getButton("/resource/class.png",
@@ -145,7 +107,7 @@ public class MainForm extends JFrame {
         }
     }
 
-    public void openFile(String filename){
+    private void openFile(String filename) {
         currentFilename = filename;
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));

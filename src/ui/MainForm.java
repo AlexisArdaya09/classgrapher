@@ -73,6 +73,7 @@ public class MainForm extends JFrame {
         return ToolBar.getToolBar(buttons);
     }
 
+
     public void saveFile() {
         if (currentFilename == null) {
             currentFilename = "Untitled";

@@ -5,11 +5,12 @@ import core.Tool;
 import ui.canvas.Canvas;
 import ui.menu.menubar.MenuBarCreator;
 import ui.menu.toolbar.ToolBar;
+import ui.menu.toolbar.ToolEntities.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.util.Arrays;
+import java.util.List;
 
 public class MainForm extends JFrame {
 
@@ -51,32 +52,25 @@ public class MainForm extends JFrame {
 
 
     private JComponent createToolBar() {
-        JButton buttonClass = ToolBar.getButton("/resource/class.png",
-                e -> logicBoard.currentTool = logicBoard.currentTool == Tool.CLASS
-                        ? Tool.ANY : Tool.CLASS);
-        JButton buttonAbstractClass = ToolBar.getButton("/resource/abstract.png",
-                e -> logicBoard.currentTool = logicBoard.currentTool == Tool.ABSTRACT_CLASS
-                        ? Tool.ANY : Tool.ABSTRACT_CLASS);
-        JButton buttonInterfaceClass = ToolBar.getButton("/resource/interfaceClass.png",
-                e -> logicBoard.currentTool = logicBoard.currentTool == Tool.INTERFACE_CLASS
-                        ? Tool.ANY : Tool.INTERFACE_CLASS);
-        JButton buttonRelation = ToolBar.getButton("/resource/association.png",
-                e -> logicBoard.currentTool = logicBoard.currentTool == Tool.RELATION
-                        ? Tool.ANY : Tool.RELATION);
-        JButton buttonInheritRelation = ToolBar.getButton("/resource/inherit.png",
-                e -> logicBoard.currentTool = logicBoard.currentTool == Tool.INHERIT_RELATION
-                        ? Tool.ANY : Tool.INHERIT_RELATION);
-        JButton buttonInterfaceRelation = ToolBar.getButton("/resource/interface.png",
-                e -> logicBoard.currentTool = logicBoard.currentTool == Tool.INTERFACE_RELATION
-                        ? Tool.ANY : Tool.INTERFACE_RELATION);
-        JButton buttonAggregationRelation = ToolBar.getButton("/resource/aggregation.png",
-                e -> logicBoard.currentTool = logicBoard.currentTool == Tool.AGGREGATION_RELATION
-                        ? Tool.ANY : Tool.AGGREGATION_RELATION);
-        JButton buttonCompositionRelation = ToolBar.getButton("/resource/composition.png",
-                e -> logicBoard.currentTool = logicBoard.currentTool == Tool.COMPOSITION_RELATION
-                        ? Tool.ANY : Tool.COMPOSITION_RELATION);
-        return ToolBar.getToolBar(Arrays.asList(buttonClass, buttonAbstractClass, buttonInterfaceClass, buttonRelation,
-                buttonInheritRelation, buttonInterfaceRelation, buttonAggregationRelation, buttonCompositionRelation));
+        ToolEntities entities = new ToolEntities(this.logicBoard);
+        ToolEntitiesClass toolEntitiesClass = new ToolEntitiesClass(entities);
+        ToolEntitiesAbstractClass toolEntitiesAbstractClass = new ToolEntitiesAbstractClass(entities);
+        ToolEntitiesInterfacesClass toolEntitiesInterfacesClass = new ToolEntitiesInterfacesClass(entities);
+        ToolEntitiesRelation toolEntitiesRelation = new ToolEntitiesRelation(entities);
+        ToolEntitiesInheritRelation toolEntitiesInheritRelation = new ToolEntitiesInheritRelation(entities);
+        ToolEntitiesInterfaceRelation toolEntitiesInterfaceRelation = new ToolEntitiesInterfaceRelation(entities);
+        ToolEntitiesAggregationRelation toolEntitiesAggregationRelation = new ToolEntitiesAggregationRelation(entities);
+        ToolEntitiesCompositionRelation toolEntitiesCompositionRelation = new ToolEntitiesCompositionRelation(entities);
+        ToolBar.addEntities(toolEntitiesClass);
+        ToolBar.addEntities(toolEntitiesAbstractClass);
+        ToolBar.addEntities(toolEntitiesInterfacesClass);
+        ToolBar.addEntities(toolEntitiesRelation);
+        ToolBar.addEntities(toolEntitiesInheritRelation);
+        ToolBar.addEntities(toolEntitiesInterfaceRelation);
+        ToolBar.addEntities(toolEntitiesAggregationRelation);
+        ToolBar.addEntities(toolEntitiesCompositionRelation);
+        List<JButton> buttons = ToolBar.prepareToolButtonsEntities();
+        return ToolBar.getToolBar(buttons);
     }
 
     public void saveFile() {

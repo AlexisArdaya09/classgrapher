@@ -1,5 +1,4 @@
 package ui.menu.menubar.file;
-package ui.menu.menubar.file;
 
 import ui.MainForm;
 

@@ -150,6 +150,7 @@ public class MainForm extends JFrame {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
             logicBoard = (LogicBoard) in.readObject();
+            canvas.updateLogicBoard(logicBoard);
             in.close();
         } catch (IOException e1) {
             System.out.println("Unable to open file: " + filename);

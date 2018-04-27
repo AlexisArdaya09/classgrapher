@@ -5,6 +5,8 @@ import core.LogicBoard;
 import core.Point;
 import core.Shape;
 import entities.classes.BaseClass;
+import entities.memento.CareTaker;
+import entities.memento.Memento;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,10 +15,10 @@ import java.util.Optional;
 
 public class Canvas extends JPanel implements Serializable {
   public LogicBoard logicBoard;
-
+  private CareTaker careTaker = new CareTaker();
 
   public Canvas(LogicBoard logicBoard) {
-    this.logicBoard = logicBoard;
+    updateLogicBoard(logicBoard);
     this.addListeners();
   }
 
@@ -46,7 +48,12 @@ public class Canvas extends JPanel implements Serializable {
 
   public void clean() {
     logicBoard.clean();
+    careTaker.reset(logicBoard.getMemento());
     repaint();
+  }
+
+  public void addMemento() {
+    careTaker.add(logicBoard.getMemento());
   }
 
   public void newFile() {
@@ -54,13 +61,19 @@ public class Canvas extends JPanel implements Serializable {
   }
 
   public void undo() {
-    logicBoard.undo();
-    repaint();
+    Memento memento = careTaker.undo();
+    if (memento != null) {
+      logicBoard.setMemento(memento);
+      repaint();
+    }
   }
 
   public void redo() {
-    logicBoard.redo();
-    repaint();
+    Memento memento = careTaker.redo();
+    if (memento != null) {
+      logicBoard.setMemento(memento);
+      repaint();
+    }
   }
 
   public void about() {
@@ -108,5 +121,6 @@ public class Canvas extends JPanel implements Serializable {
 
   public void updateLogicBoard(LogicBoard logicBoard) {
     this.logicBoard = logicBoard;
+    careTaker.reset(logicBoard.getMemento());
   }
 }

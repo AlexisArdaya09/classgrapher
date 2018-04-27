@@ -1,5 +1,9 @@
 package core;
 
+import core.memento.MementoObjectHandler;
+import entities.memento.Memento;
+import entities.memento.Originator;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +11,11 @@ import java.util.Optional;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-public class LogicBoard implements Serializable {
+public class LogicBoard implements Serializable, Originator {
   public List<Connector> connectors = new ArrayList<>(0);
   public List<Shape> shapes = new ArrayList<>(0);
   public Tool currentTool = Tool.ANY;
-  public Stack<Shape> deletedShapes = new Stack<>();
+  Stack<Shape> deletedShapes = new Stack<>();
 
   public void addConnector(Connector connector) {
     this.connectors.add(connector);
@@ -39,5 +43,23 @@ public class LogicBoard implements Serializable {
 
   public void redo() {
     shapes.add(deletedShapes.pop());
+  }
+
+  @Override
+  public Memento getMemento() {
+    return new Memento(MementoObjectHandler.copyObject(this));
+  }
+
+  @Override
+  public void setMemento(Memento memento) {
+    LogicBoard logicBoardCopy = MementoObjectHandler.loadObject(memento);
+    setFields(logicBoardCopy);
+  }
+
+  private void setFields(LogicBoard logicBoard) {
+    this.connectors = logicBoard.connectors;
+    this.shapes = logicBoard.shapes;
+    this.currentTool = logicBoard.currentTool;
+    this.deletedShapes = logicBoard.deletedShapes;
   }
 }

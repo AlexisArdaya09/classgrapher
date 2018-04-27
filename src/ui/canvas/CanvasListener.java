@@ -44,6 +44,7 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
       try {
         Shape newShape = createNewShape(pointPressed);
         canvas.logicBoard.shapes.add(newShape);
+        canvas.addMemento();
         canvas.logicBoard.currentTool = Tool.ANY;
         canvas.repaint();
       } catch (CanNotBeCreatedException e1) {
@@ -66,6 +67,9 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
       boolean isToolCompositionRelation = canvas.logicBoard.currentTool == Tool.COMPOSITION_RELATION;
       if (!isToolRelation && !isToolInheritRelation && !isToolInterfaceRelation
             && !isToolAggregationRelation && !isToolCompositionRelation) {
+        if (currentShape.isPresent() && !isTargetClassSelected()) {
+          canvas.addMemento();
+        }
       currentShape = Optional.empty();
     }
   }

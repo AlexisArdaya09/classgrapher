@@ -4,8 +4,8 @@ import ui.MainForm;
 
 import javax.swing.*;
 
-public class RedoMenuItem extends JMenuItem {
-    public RedoMenuItem(MainForm mainForm) {
+class RedoMenuItem extends JMenuItem {
+    RedoMenuItem(MainForm mainForm) {
         super("Redo");
         addActionListener(e -> mainForm.canvas.redo());
     }

@@ -33,7 +33,6 @@ public class Canvas extends JPanel implements Serializable {
     graphics = prepareGraphics(graphics, dimension);
     paintShapes(graphics);
     paintConectors(graphics);
-   // careTaker.add(logicBoard.getMemento());
   }
 
   public Graphics prepareGraphics(Graphics graphics, Dimension dimension) {

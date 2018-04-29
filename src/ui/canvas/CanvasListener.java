@@ -41,18 +41,12 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
     if (!currentShape.isPresent() && ToolUtils.isToolClass(canvas.logicBoard.currentTool)) {
       try {
         Shape newShape = (Shape) BaseClass.getNewBaseClass(canvas.logicBoard.currentTool, "", pointPressed);
-        canvas.logicBoard.shapes.add(newShape);
-        canvas.addMemento();
-        canvas.logicBoard.currentTool = Tool.ANY;
-        canvas.repaint();
+        addShapeToLogicBoard(newShape);
         String title = createShapeTitle();
 
         if (!title.equals(cancelOption)) {
           Shape shape = (Shape) ((BaseClass) newShape).setTitle(title);
-          canvas.logicBoard.shapes.add(shape);
-          canvas.addMemento();
-          canvas.logicBoard.currentTool = Tool.ANY;
-          canvas.repaint();
+          addShapeToLogicBoard(shape);
           return;
         }
         canvas.logicBoard.shapes.remove(newShape);
@@ -61,6 +55,13 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
         e1.printStackTrace();
       }
     }
+  }
+
+  private void addShapeToLogicBoard(Shape shape) {
+    canvas.logicBoard.shapes.add(shape);
+    canvas.addMemento();
+    canvas.logicBoard.currentTool = Tool.ANY;
+    canvas.repaint();
   }
 
   private String createShapeTitle() throws CanNotBeCreatedException {

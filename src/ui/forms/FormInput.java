@@ -9,7 +9,7 @@ public interface FormInput {
     JPanel panel = preparejPanel(field1);
     int result = JOptionPane.showConfirmDialog(null, panel, "Crear clase.",
         JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-    return result == JOptionPane.OK_OPTION ? field1.getText() : "";
+    return result == JOptionPane.OK_OPTION ? field1.getText() : "cancel.OPTION";
   }
 
   static JPanel preparejPanel(JTextField field1) {

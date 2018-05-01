@@ -7,6 +7,7 @@ import entities.classes.BaseClass;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Optional;
 
@@ -105,6 +106,13 @@ public class Canvas extends JPanel implements Serializable {
   }
   public void paintFollowerLine(Graphics graphics) {
     if (startingPoint != null && endPoint != null) {
+      int topLeftX = startingPoint.x < endPoint.x ? startingPoint.x : endPoint.x;
+      int topLeftY = startingPoint.y < endPoint.y ? startingPoint.y : endPoint.y;
+      int bottomRightX = startingPoint.x > endPoint.x ? startingPoint.x : endPoint.x;
+      int bottomRightY = startingPoint.y > endPoint.y ? startingPoint.y : endPoint.y;
+      int areaWidth = bottomRightX - topLeftX;
+      int areaHeight = bottomRightY - topLeftY;
+      graphics.clearRect(topLeftX, topLeftY, areaWidth, areaHeight);
       graphics.drawLine(startingPoint.x, startingPoint.y, endPoint.x, endPoint.y);
     }
   }

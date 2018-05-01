@@ -15,6 +15,8 @@ import java.util.Optional;
 
 public class Canvas extends JPanel implements Serializable {
   public LogicBoard logicBoard;
+  java.awt.Point startingPoint, endPoint;
+
   private CareTaker careTaker = new CareTaker();
 
   public Canvas(LogicBoard logicBoard) {
@@ -33,6 +35,7 @@ public class Canvas extends JPanel implements Serializable {
     graphics = prepareGraphics(graphics, dimension);
     paintShapes(graphics);
     paintConectors(graphics);
+    paintFollowerLine(graphics);
   }
 
   public Graphics prepareGraphics(Graphics graphics, Dimension dimension) {
@@ -127,5 +130,39 @@ public class Canvas extends JPanel implements Serializable {
   public void updateLogicBoard(LogicBoard logicBoard) {
     this.logicBoard = logicBoard;
     careTaker.reset(logicBoard.getMemento());
+  }
+  public void paintFollowerLine(Graphics graphics) {
+    if (startingPoint != null && endPoint != null) {
+      int topLeftX = startingPoint.x < endPoint.x ? startingPoint.x : endPoint.x;
+      int topLeftY = startingPoint.y < endPoint.y ? startingPoint.y : endPoint.y;
+      int bottomRightX = startingPoint.x > endPoint.x ? startingPoint.x : endPoint.x;
+      int bottomRightY = startingPoint.y > endPoint.y ? startingPoint.y : endPoint.y;
+      int areaWidth = bottomRightX - topLeftX;
+      int areaHeight = bottomRightY - topLeftY;
+      graphics.clearRect(topLeftX, topLeftY, areaWidth, areaHeight);
+      graphics.drawLine(startingPoint.x, startingPoint.y, endPoint.x, endPoint.y);
+    }
+  }
+
+  public void initFollowerLine(java.awt.Point point) {
+    startingPoint = point;
+    endPoint = point;
+  }
+
+  public void destroyFollowerLine() {
+    startingPoint = null;
+    endPoint = null;
+  }
+
+  public java.awt.Point getStartingPoint() {
+    return startingPoint;
+  }
+
+  public java.awt.Point getEndPoint() {
+    return endPoint;
+  }
+
+  public void setEndPoint(java.awt.Point point) {
+    endPoint = point;
   }
 }

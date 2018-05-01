@@ -128,10 +128,12 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
   private void execRelation(java.awt.Point point) {
     if (isOriginClassSelected()) {
       markOriginClassAsCurrentShape(point);
+        canvas.initFollowerLine(point);
       return;
     }
     if (isTargetClassSelected()) {
       createConnectorToTargetClass(point);
+        canvas.destroyFollowerLine();
     }
   }
 
@@ -182,5 +184,9 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
 
   @Override
   public void mouseMoved(MouseEvent e) {
+    if (canvas.getStartingPoint() != null && canvas.getEndPoint() != null) {
+      canvas.setEndPoint(e.getPoint());
+      canvas.paintFollowerLine(canvas.getGraphics());
+    }
   }
 }

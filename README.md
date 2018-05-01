@@ -10,9 +10,10 @@ Features:
 
 ## Team ##
 
-* **David Batista**
-* **Veronica López**
 * **Alexis Ardaya**
+* **Liyina Veizaga**
+* **Gabriel Morales**
+* **Wilson Crespo**
 
 Tech used:
 ----------

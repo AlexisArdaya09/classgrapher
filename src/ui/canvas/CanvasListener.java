@@ -18,6 +18,7 @@ import ui.forms.FormInput;
 import core.Shape;
 
 public class CanvasListener implements MouseListener, MouseMotionListener {
+  private static final int double_click = 2;
   private Canvas canvas;
   private Optional<Shape> currentShape = Optional.empty();
   private Tool currentRelation = Tool.RELATION;
@@ -43,6 +44,7 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
       try {
         Shape newShape = createNewShape(pointPressed);
         canvas.logicBoard.shapes.add(newShape);
+        canvas.addMemento();
         canvas.logicBoard.currentTool = Tool.ANY;
         canvas.repaint();
       } catch (CanNotBeCreatedException e1) {
@@ -58,8 +60,16 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
 
     @Override
   public void mouseReleased(MouseEvent e) {
-    if (canvas.logicBoard.currentTool != Tool.RELATION && canvas.logicBoard.currentTool != Tool.INHERIT_RELATION && canvas.logicBoard.currentTool != Tool.INTERFACE_RELATION
-            && canvas.logicBoard.currentTool != Tool.AGGREGATION_RELATION && canvas.logicBoard.currentTool != Tool.COMPOSITION_RELATION) {
+      boolean isToolRelation = canvas.logicBoard.currentTool == Tool.RELATION;
+      boolean isToolInheritRelation = canvas.logicBoard.currentTool == Tool.INHERIT_RELATION;
+      boolean isToolInterfaceRelation = canvas.logicBoard.currentTool == Tool.INTERFACE_RELATION;
+      boolean isToolAggregationRelation = canvas.logicBoard.currentTool == Tool.AGGREGATION_RELATION;
+      boolean isToolCompositionRelation = canvas.logicBoard.currentTool == Tool.COMPOSITION_RELATION;
+      if (!isToolRelation && !isToolInheritRelation && !isToolInterfaceRelation
+            && !isToolAggregationRelation && !isToolCompositionRelation) {
+        if (currentShape.isPresent() && !isTargetClassSelected()) {
+          canvas.addMemento();
+        }
       currentShape = Optional.empty();
     }
   }
@@ -86,19 +96,23 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
 
   @Override
   public void mouseClicked(MouseEvent e) {
-    if (e.getClickCount() == 2) {
+    if (e.getClickCount() == double_click) {
       java.awt.Point point = e.getPoint();
       currentShape = canvas.getShape(new Point(point.x, point.y));
       currentShape.ifPresent(cs -> {
-        canvas.logicBoard.shapes = canvas.logicBoard.shapes.stream().map(s -> {
-          if (s.getId().equals(cs.getId())) {
-            return (Shape) ((BaseClass) s).setTitle(FormInput.getNameFromInput());
-          }
-          return s;
-        }).collect(Collectors.toList());
+        canvas.logicBoard.shapes = getCollectShapes(cs);
         canvas.repaint();
       });
     }
+  }
+
+  public List<Shape> getCollectShapes(Shape cs) {
+    return canvas.logicBoard.shapes.stream().map(s -> {
+      if (s.getId().equals(cs.getId())) {
+        return (Shape) ((BaseClass) s).setTitle(FormInput.getNameFromInput());
+      }
+      return s;
+    }).collect(Collectors.toList());
   }
 
   private void execRelation(java.awt.Point point) {

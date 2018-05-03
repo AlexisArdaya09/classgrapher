@@ -8,7 +8,6 @@ import entities.classes.NormalClass;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ClassPanel extends JPanel implements Scrollable {
     BaseClass baseClass;

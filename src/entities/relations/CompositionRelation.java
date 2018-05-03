@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.Optional;
 import core.Shape;
 
-class CompositionRelation extends Relation implements Shape {
+public class CompositionRelation extends Relation implements Shape {
 
   public CompositionRelation() {
     super();

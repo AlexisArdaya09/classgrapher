@@ -6,7 +6,7 @@ import core.Shape;
 import java.awt.*;
 import java.util.Optional;
 
-class AggregationRelation extends Relation implements Shape {
+public class AggregationRelation extends Relation implements Shape {
 
   public AggregationRelation() {
     super();

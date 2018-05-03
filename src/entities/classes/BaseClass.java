@@ -49,4 +49,8 @@ public abstract class BaseClass implements Serializable {
     this.title = title;
     return this;
   }
+
+  public String getTitle() {
+    return title;
+  }
 }

@@ -1,6 +1,7 @@
 package ui.panels;
 
 import entities.classes.AbstractClass;
+import entities.classes.BaseClass;
 import entities.classes.InterfaceClass;
 import entities.classes.NormalClass;
 
@@ -8,14 +9,29 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ClassPanel extends JPanel implements Scrollable {
-    NormalClass normalClass;
-    AbstractClass abstractClass;
-    InterfaceClass interfaceClass;
+    BaseClass baseClass;
+    String qualifier;
+    JLabel qualifierTitle;
+    JLabel className;
 
     public void unselectAll() {
-        normalClass = null;
-        abstractClass = null;
-        interfaceClass = null;
+        baseClass = null;
+        qualifier = null;
+    }
+
+    public void setClass(BaseClass baseClass) {
+        unselectAll();
+        if (baseClass instanceof NormalClass) {
+            qualifier = "Class";
+        } else if (baseClass instanceof AbstractClass) {
+            qualifier = "Abstract Class";
+        } else if (baseClass instanceof InterfaceClass) {
+            qualifier = "Interface";
+        }
+        className.setText(baseClass.getTitle());
+        qualifierTitle.setText(qualifier);
+        add(qualifierTitle);
+        add(className);
     }
 
     @Override

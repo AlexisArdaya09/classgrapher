@@ -8,6 +8,8 @@ public interface Shape {
 
   void draw(Graphics graphics);
 
+  void setBorderColor(Integer newColor);
+
   Optional<Shape> getShapeInCoordinate(Point point);
 
   void addPoint(Point point);

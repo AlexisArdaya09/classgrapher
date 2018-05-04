@@ -27,6 +27,11 @@ public class NormalRelation extends Relation implements Shape {
   }
 
   @Override
+  public void setBorderColor(Integer newColor) {
+    this.borderColor = newColor;
+  }
+
+  @Override
   public Optional<Shape> getShapeInCoordinate(Point point) {
     return Optional.empty();
   }

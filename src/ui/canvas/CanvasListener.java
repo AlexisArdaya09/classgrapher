@@ -55,6 +55,15 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
         e1.printStackTrace();
       }
     }
+    updateSelectedShape(pointPressed);
+  }
+
+  private void updateSelectedShape(Point pointPressed) {
+    canvas.logicBoard.unSelectShape();
+    if (currentShape.isPresent()){
+      canvas.logicBoard.selectShape(pointPressed);
+    }
+    canvas.repaint();
   }
 
   private void addShapeToLogicBoard(Shape shape) {

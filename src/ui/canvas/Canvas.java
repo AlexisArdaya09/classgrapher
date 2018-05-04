@@ -28,11 +28,14 @@ public class Canvas extends JPanel implements Serializable {
     CanvasListener canvasListener = new CanvasListener(this);
     addMouseListener(canvasListener);
     addMouseMotionListener(canvasListener);
+    addKeyListener(canvasListener);
   }
 
   public void paint(Graphics graphics) {
     Dimension dimension = this.getSize();
     graphics = prepareGraphics(graphics, dimension);
+    setFocusable(true);
+    requestFocusInWindow();
     paintShapes(graphics);
     paintConnectors(graphics);
     paintFollowerLine(graphics);
@@ -53,6 +56,11 @@ public class Canvas extends JPanel implements Serializable {
     logicBoard.clean();
     careTaker.reset(logicBoard.getMemento());
     repaint();
+  }
+  public void removeSelectedShape(){
+    this.logicBoard.removeConnectorsFromSelectedShape();
+    this.logicBoard.removeSelectedShape();
+    this.addMemento();
   }
 
   public void addMemento() {

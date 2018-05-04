@@ -11,11 +11,13 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
+import java.awt.event.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class CanvasListener implements MouseListener, MouseMotionListener {
+public class CanvasListener implements MouseListener, MouseMotionListener, KeyListener {
     private static final int double_click = 2;
     private Canvas canvas;
     private Optional<Shape> currentShape = Optional.empty();
@@ -64,6 +66,7 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
         }
         updateSelectedShape(pointPressed);
     }
+
     private void updateSelectedShape(Point pointPressed) {
         canvas.logicBoard.unSelectShape();
         if (currentShape.isPresent()) {
@@ -210,5 +213,22 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
             canvas.setEndPoint(e.getPoint());
             canvas.paintFollowerLine(canvas.getGraphics());
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+            this.canvas.removeSelectedShape();
+            this.canvas.repaint();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
     }
 }

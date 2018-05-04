@@ -15,16 +15,16 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class CanvasListener implements MouseListener, MouseMotionListener {
-    private static final int double_click = 2;
-    private Canvas canvas;
-    private Optional<Shape> currentShape = Optional.empty();
-    private Tool currentRelation = Tool.RELATION;
-    private int selection = 0;
-    private String cancelOption = "cancel.OPTION";
+  private static final int double_click = 2;
+  private Canvas canvas;
+  private Optional<Shape> currentShape = Optional.empty();
+  private Tool currentRelation = Tool.RELATION;
+  private int selection = 0;
+  private String cancelOption= "cancel.OPTION";
 
-    public CanvasListener(Canvas canvas) {
-        this.canvas = canvas;
-    }
+  public CanvasListener(Canvas canvas) {
+    this.canvas = canvas;
+  }
 
     @Override
     public void mousePressed(MouseEvent e) {

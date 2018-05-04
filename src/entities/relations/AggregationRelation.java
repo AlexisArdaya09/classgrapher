@@ -30,7 +30,7 @@ public class AggregationRelation extends Relation implements Shape {
     polygon.addPoint(point1.x, point1.y);
     polygon.addPoint(point3.x, point3.y);
     polygon.addPoint(point2.x, point2.y);
-    graphics.setColor(Color.black);
+    graphics.setColor(new Color(this.borderColor));
 
     Graphics2D graphics2D = (Graphics2D) graphics;
     graphics2D.setStroke(new BasicStroke(2));
@@ -38,8 +38,13 @@ public class AggregationRelation extends Relation implements Shape {
     graphics.setColor(Color.white);
     graphics.fillPolygon(polygon);
     graphics2D.setStroke(new BasicStroke(1));
-    graphics.setColor(Color.black);
+    graphics.setColor(new Color(this.borderColor));
 
+  }
+
+  @Override
+  public void setBorderColor(Integer newColor) {
+    this.borderColor = newColor;
   }
 
   @Override

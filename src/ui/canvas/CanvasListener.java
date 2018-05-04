@@ -71,16 +71,16 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
         canvas.repaint();
     }
 
-    private void addShapeToLogicBoard(Shape shape) {
-        canvas.logicBoard.shapes.add(shape);
-        canvas.addMemento();
-        canvas.logicBoard.currentTool = Tool.ANY;
-        canvas.repaint();
-    }
+  private void addShapeToLogicBoard(Shape shape) {
+    canvas.logicBoard.shapes.add(shape);
+    canvas.addMemento();
+    canvas.logicBoard.currentTool = Tool.ANY;
+    canvas.repaint();
+  }
 
-    private String createShapeTitle() throws CanNotBeCreatedException {
-        return FormInput.getNameFromInput();
-    }
+  private String createShapeTitle() throws CanNotBeCreatedException {
+    return FormInput.getNameFromInput();
+  }
 
     @Override
     public void mouseReleased(MouseEvent e) {

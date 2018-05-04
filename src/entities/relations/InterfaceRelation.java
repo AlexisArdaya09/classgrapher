@@ -45,7 +45,12 @@ public class InterfaceRelation extends Relation implements Shape {
     graphics2D.setColor(Color.WHITE);
     graphics2D.fill(path);
     graphics2D.setStroke(new BasicStroke(1));
-    graphics.setColor(Color.black);
+    graphics.setColor(new Color(this.borderColor));
+  }
+
+  @Override
+  public void setBorderColor(Integer newColor) {
+    this.borderColor = newColor;
   }
 
   @Override

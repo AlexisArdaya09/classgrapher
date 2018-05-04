@@ -9,13 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
-import java.util.stream.Collectors;
 
 public class LogicBoard implements Serializable, Originator {
+  private static final int SELECTED_SHAPE_BORDER_COLOR = -16776961;
+  private static final int BLACK_BORDER_COLOR = -16777216;
   public List<Connector> connectors = new ArrayList<>(0);
   public List<Shape> shapes = new ArrayList<>(0);
+  private Shape selectedShape;
   public Tool currentTool = Tool.ANY;
-  Stack<Shape> deletedShapes = new Stack<>();
+  private Stack<Shape> deletedShapes = new Stack<>();
 
   public void addConnector(Connector connector) {
     this.connectors.add(connector);
@@ -31,18 +33,19 @@ public class LogicBoard implements Serializable, Originator {
         shape.getShapeInCoordinate(point).isPresent()).findFirst();
   }
 
-  public void undo() {
-    if (shapes.size() > 0){
-      connectors = connectors.stream()
-          .filter(c -> !((Shape) c.getRelation()).getId().equals(shapes.get(shapes.size() - 1).getId()))
-          .collect(Collectors.toList());
-      deletedShapes.push(shapes.get(shapes.size() - 1));
-      shapes.remove(shapes.size() - 1);
+  public void selectShape(Point point){
+    Optional<Shape> shape = this.getShape(point);
+    if(shape.isPresent()){
+      this.selectedShape= shape.get();
+      this.selectedShape.setBorderColor(SELECTED_SHAPE_BORDER_COLOR);
     }
   }
 
-  public void redo() {
-    shapes.add(deletedShapes.pop());
+  public void unSelectShape(){
+      if (this.selectedShape != null){
+          this.selectedShape.setBorderColor(BLACK_BORDER_COLOR);
+      }
+      this.selectedShape = null;
   }
 
   @Override

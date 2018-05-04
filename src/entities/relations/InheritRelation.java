@@ -39,8 +39,13 @@ public class InheritRelation extends Relation implements Shape {
     graphics2D.draw(path);
 
     // Fill the triangle, with a different color
-    graphics2D.setColor(Color.BLACK);
+    graphics2D.setColor(new Color(this.borderColor));
     graphics2D.fill(path);
+  }
+
+  @Override
+  public void setBorderColor(Integer newColor) {
+    this.borderColor = newColor;
   }
 
   @Override

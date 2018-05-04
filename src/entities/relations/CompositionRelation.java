@@ -31,10 +31,15 @@ public class CompositionRelation extends Relation implements Shape {
     polygon.addPoint(point3.x, point3.y);
     polygon.addPoint(point2.x, point2.y);
     graphics.fillPolygon(polygon);
-    graphics.setColor(Color.BLACK);
+    graphics.setColor(new Color(this.borderColor));
   }
 
-  @Override
+    @Override
+    public void setBorderColor(Integer newColor) {
+      this.borderColor = newColor;
+    }
+
+    @Override
   public Optional<Shape> getShapeInCoordinate(Point point) {
     return Optional.empty();
   }

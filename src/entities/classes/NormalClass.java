@@ -8,13 +8,16 @@ import core.Shape;
 
 public class NormalClass extends BaseClass implements Shape, Serializable {
 
+  private static final int BLACK_BORDER_COLOR = -16777216;
+
   public NormalClass(String title, Point pointOne, Point pointTwo) {
     this.title = title;
     this.pointOne = pointOne;
     this.pointTwo = pointTwo;
+    this.borderColor =BLACK_BORDER_COLOR;
   }
 
-  public NormalClass(String title, Point pointOne) {
+  NormalClass(String title, Point pointOne) {
     this.title = title;
     this.pointOne = pointOne;
     this.pointTwo = new Point(pointOne.x + DEFAULT_WIDTH, pointOne.y + DEFAULT_HIGH);
@@ -34,11 +37,16 @@ public class NormalClass extends BaseClass implements Shape, Serializable {
 
     graphics.setColor(Color.white);
     graphics.fillRect(x, y, w, h);
-    graphics.setColor(Color.black);
+    graphics.setColor(new Color(this.borderColor));
     graphics.drawRect(x, y, w, h);
     graphics.drawString(title,
         x + (w/2) - 40,
         y + (h/2) + 5);
+  }
+
+  @Override
+  public void setBorderColor(Integer newColor) {
+    this.borderColor = newColor;
   }
 
   @Override

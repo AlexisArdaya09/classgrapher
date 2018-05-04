@@ -8,14 +8,16 @@ import java.util.Optional;
 import java.util.UUID;
 
 public abstract class BaseClass implements Serializable {
+  private static final int BLACK_BORDER_COLOR = -16777216;
   protected String id = UUID.randomUUID().toString();
-  protected String title;
+  String title;
   protected Point pointOne;
   protected Point pointTwo;
   int DEFAULT_WIDTH = 100;
   int DEFAULT_HIGH = 50;
+  int borderColor = BLACK_BORDER_COLOR;
 
-  public BaseClass() {
+  BaseClass() {
   }
 
   public Point getPointOne() {
@@ -26,7 +28,7 @@ public abstract class BaseClass implements Serializable {
     return this.pointTwo;
   }
 
-  public Optional<BaseClass> getClassInCoordinate(Point point) {
+  Optional<BaseClass> getClassInCoordinate(Point point) {
     int x = Math.min(pointOne.x, pointTwo.x);
     int y = Math.min(pointOne.y, pointTwo.y);
     int w = Math.abs(pointOne.x - pointTwo.x) + 1;

@@ -8,10 +8,12 @@ import java.util.UUID;
 
 public abstract class Relation implements Serializable {
   final String id = UUID.randomUUID().toString();
+  private static final int BLACK_BORDER_COLOR = -16777216;
   Point pointOne;
   Point pointTwo;
   private final int ARROW_LENGTH = 20;
   final int ARROW_ANGLE = 25;
+  int borderColor = BLACK_BORDER_COLOR;
 
   Relation() {
     this.pointOne = new Point(0, 0);

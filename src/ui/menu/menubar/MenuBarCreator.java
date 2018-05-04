@@ -12,7 +12,6 @@ public class MenuBarCreator {
 
     public MenuBarCreator(MainForm mainForm) {
         this.mainForm = mainForm;
-        System.out.println("MenuBarCreator");
     }
 
     public JMenuBar create() {

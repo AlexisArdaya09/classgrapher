@@ -8,6 +8,10 @@ import entities.classes.NormalClass;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+<<<<<<< HEAD
+=======
+import java.awt.event.ActionListener;
+>>>>>>> 185f1ba55cc5bb3421291e70eb9b5f5ef16a30e8
 
 public class ClassPanel extends JPanel implements Scrollable {
     BaseClass baseClass;
@@ -49,7 +53,10 @@ public class ClassPanel extends JPanel implements Scrollable {
     private void setClass() {
         setClass(this.baseClass);
     }
+<<<<<<< HEAD
     JLabel className;
+=======
+>>>>>>> 185f1ba55cc5bb3421291e70eb9b5f5ef16a30e8
 
     public void unselectAll() {
         baseClass = null;
@@ -66,11 +73,14 @@ public class ClassPanel extends JPanel implements Scrollable {
             qualifier = "Interface";
         }
         initComponents();
+<<<<<<< HEAD
         className.setText(baseClass.getTitle());
         qualifierTitle.setText(qualifier);
         add(qualifierTitle);
         add(className);
         initComponents();
+=======
+>>>>>>> 185f1ba55cc5bb3421291e70eb9b5f5ef16a30e8
     }
 
     @Override
@@ -97,4 +107,8 @@ public class ClassPanel extends JPanel implements Scrollable {
     public boolean getScrollableTracksViewportHeight() {
         return false;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 185f1ba55cc5bb3421291e70eb9b5f5ef16a30e8

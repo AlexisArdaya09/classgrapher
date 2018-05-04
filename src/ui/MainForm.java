@@ -6,6 +6,7 @@ import ui.canvas.Canvas;
 import ui.menu.menubar.MenuBarCreator;
 import ui.menu.toolbar.ToolBar;
 import ui.menu.toolbar.ToolEntities.*;
+import ui.panels.ClassPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +22,8 @@ public class MainForm extends JFrame {
     public Canvas canvas;
     private JFileChooser chooser = new JFileChooser(".");
     private String currentFilename = null;
+    private JTabbedPane propertiesPanel = new JTabbedPane();
+    private ClassPanel classPanel = new ClassPanel();
 
     public LogicBoard logicBoard = new LogicBoard();
 
@@ -44,10 +47,13 @@ public class MainForm extends JFrame {
     }
 
     private void initForm() {
+        propertiesPanel.add(classPanel);
+
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(menuBar, BorderLayout.NORTH);
         getContentPane().add(canvas, BorderLayout.CENTER);
         getContentPane().add(toolbar, BorderLayout.WEST);
+        getContentPane().add(propertiesPanel, BorderLayout.EAST);
     }
 
 

@@ -12,13 +12,17 @@ import java.awt.event.ActionEvent;
 public class ClassPanel extends JPanel implements Scrollable {
     BaseClass baseClass;
     String qualifier;
-    JLabel qualifierTitle;
+    JLabel qualifierTitle = new JLabel();
     BorderLayout borderLayout = new BorderLayout();
+    GridLayout gridLayout = new GridLayout();
     JTextField jtfClassName = new JTextField();
+    JPanel jpContent = new JPanel();
 
     public ClassPanel() {
         try {
-            initComponents();
+            if (baseClass != null) {
+                initComponents();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -27,22 +31,37 @@ public class ClassPanel extends JPanel implements Scrollable {
     private void updateClassName(ActionEvent e) {
         baseClass.setTitle(jtfClassName.getText());
     }
-
+    Action action = new AbstractAction()
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            updateClassName(e);
+        }
+    };
     private void initComponents() {
         if (baseClass != null) {
+            setPreferredSize(new Dimension(200, 100));
+            jtfClassName.setPreferredSize(new Dimension(200, 25));
+            qualifierTitle.setPreferredSize(new Dimension(200, 25));
             jtfClassName.setText(baseClass.getTitle());
             qualifierTitle.setText("Nombre de la " + qualifier);
-            this.setLayout(borderLayout);
+            jpContent.setLayout(gridLayout);
+            gridLayout.setColumns(1);
+            gridLayout.setRows(0);
             this.setSize(new Dimension(250, 220));
-            jtfClassName.addActionListener(e -> updateClassName(e));
-            this.add(qualifierTitle, BorderLayout.NORTH);
-            this.add(jtfClassName, BorderLayout.NORTH);
+            jtfClassName.addActionListener(action);
+            jpContent.add(qualifierTitle, null);
+            jpContent.add(jtfClassName, null);
+            this.add(jpContent, BorderLayout.NORTH);
         }
     }
 
     public ClassPanel(BaseClass baseClass) {
         this.baseClass = baseClass;
-        initComponents();
+        if (this.baseClass != null) {
+            initComponents();
+        }
         setClass();
     }
 
@@ -50,21 +69,18 @@ public class ClassPanel extends JPanel implements Scrollable {
         setClass(this.baseClass);
     }
 
-    public void unselectAll() {
-        baseClass = null;
-        qualifier = null;
-    }
-
     public void setClass(BaseClass baseClass) {
-        unselectAll();
-        if (baseClass instanceof NormalClass) {
-            qualifier = "Clase";
-        } else if (baseClass instanceof AbstractClass) {
-            qualifier = "Clase Abstracta";
-        } else if (baseClass instanceof InterfaceClass) {
-            qualifier = "Interface";
+        this.baseClass = baseClass;
+        if (this.baseClass != null) {
+            if (this.baseClass instanceof NormalClass) {
+                qualifier = "Clase";
+            } else if (this.baseClass instanceof AbstractClass) {
+                qualifier = "Clase Abstracta";
+            } else if (this.baseClass instanceof InterfaceClass) {
+                qualifier = "Interface";
+            }
+            initComponents();
         }
-        initComponents();
     }
 
     @Override

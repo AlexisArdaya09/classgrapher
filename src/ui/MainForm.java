@@ -47,7 +47,10 @@ public class MainForm extends JFrame {
     }
 
     private void initForm() {
+        classPanel.setPreferredSize(new Dimension(250, 200));
         propertiesPanel.add(classPanel);
+        logicBoard.setClassPanel(classPanel);
+
 
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(menuBar, BorderLayout.NORTH);

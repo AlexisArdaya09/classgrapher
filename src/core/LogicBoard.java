@@ -1,8 +1,10 @@
 package core;
 
 import core.memento.MementoObjectHandler;
+import entities.classes.BaseClass;
 import entities.memento.Memento;
 import entities.memento.Originator;
+import ui.panels.ClassPanel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class LogicBoard implements Serializable, Originator {
   private Shape selectedShape;
   public Tool currentTool = Tool.ANY;
   private Stack<Shape> deletedShapes = new Stack<>();
+  private ClassPanel classPanel;
 
   public void addConnector(Connector connector) {
     this.connectors.add(connector);
@@ -38,6 +41,7 @@ public class LogicBoard implements Serializable, Originator {
     if(shape.isPresent()){
       this.selectedShape= shape.get();
       this.selectedShape.setBorderColor(SELECTED_SHAPE_BORDER_COLOR);
+      this.classPanel.setClass((BaseClass) this.selectedShape);
     }
   }
 
@@ -46,6 +50,7 @@ public class LogicBoard implements Serializable, Originator {
           this.selectedShape.setBorderColor(BLACK_BORDER_COLOR);
       }
       this.selectedShape = null;
+      this.classPanel.setClass(null);
   }
 
   @Override
@@ -64,5 +69,9 @@ public class LogicBoard implements Serializable, Originator {
     this.shapes = logicBoard.shapes;
     this.currentTool = logicBoard.currentTool;
     this.deletedShapes = logicBoard.deletedShapes;
+  }
+
+  public void setClassPanel(ClassPanel classPanel) {
+    this.classPanel = classPanel;
   }
 }

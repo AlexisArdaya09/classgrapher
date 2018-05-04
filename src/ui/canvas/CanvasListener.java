@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 public class CanvasListener implements MouseListener, MouseMotionListener {
     private static final int double_click = 2;
+    private static final int single_click = 1;
     private Canvas canvas;
     private Optional<Shape> currentShape = Optional.empty();
     private Tool currentRelation = Tool.RELATION;

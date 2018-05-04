@@ -13,7 +13,6 @@ public class ClassPanel extends JPanel implements Scrollable {
     BaseClass baseClass;
     String qualifier;
     JLabel qualifierTitle;
-<<<<<<< HEAD
     BorderLayout borderLayout = new BorderLayout();
     JTextField jtfClassName = new JTextField();
 
@@ -50,9 +49,7 @@ public class ClassPanel extends JPanel implements Scrollable {
     private void setClass() {
         setClass(this.baseClass);
     }
-=======
     JLabel className;
->>>>>>> [feature/BB-56][not completed]: basic information of class displayed in class panel
 
     public void unselectAll() {
         baseClass = null;
@@ -62,7 +59,6 @@ public class ClassPanel extends JPanel implements Scrollable {
     public void setClass(BaseClass baseClass) {
         unselectAll();
         if (baseClass instanceof NormalClass) {
-<<<<<<< HEAD
             qualifier = "Clase";
         } else if (baseClass instanceof AbstractClass) {
             qualifier = "Clase Abstracta";
@@ -70,18 +66,11 @@ public class ClassPanel extends JPanel implements Scrollable {
             qualifier = "Interface";
         }
         initComponents();
-=======
-            qualifier = "Class";
-        } else if (baseClass instanceof AbstractClass) {
-            qualifier = "Abstract Class";
-        } else if (baseClass instanceof InterfaceClass) {
-            qualifier = "Interface";
-        }
         className.setText(baseClass.getTitle());
         qualifierTitle.setText(qualifier);
         add(qualifierTitle);
         add(className);
->>>>>>> [feature/BB-56][not completed]: basic information of class displayed in class panel
+        initComponents();
     }
 
     @Override

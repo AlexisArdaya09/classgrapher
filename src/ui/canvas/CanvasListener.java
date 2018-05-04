@@ -7,6 +7,7 @@ import entities.classes.BaseClass;
 import entities.relations.Relation;
 import ui.forms.FormInput;
 
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -86,22 +87,24 @@ public class CanvasListener implements MouseListener, MouseMotionListener {
 
   @Override
   public void mouseDragged(MouseEvent e) {
-    java.awt.Point point = e.getPoint();
-    List<Shape> shapes = canvas.logicBoard.shapes;
-    currentShape.ifPresent(currentShape ->
-        canvas.logicBoard.shapes = shapes.stream().map(shape -> {
-          if (shape.getId().equals(currentShape.getId())) {
-            try {
-              shape.addPoint(new Point(point.x, point.y));
+    if (SwingUtilities.isRightMouseButton(e)){
+      java.awt.Point point = e.getPoint();
+      List<Shape> shapes = canvas.logicBoard.shapes;
+      currentShape.ifPresent(currentShape ->
+              canvas.logicBoard.shapes = shapes.stream().map(shape -> {
+                if (shape.getId().equals(currentShape.getId())) {
+                  try {
+                    shape.addPoint(new Point(point.x, point.y));
 
-            } catch (Exception ea){
-              System.out.print(ea.getMessage());
-            }
-            return shape;
-          }
-          return shape;
-        }).collect(Collectors.toList()));
-    canvas.repaint();
+                  } catch (Exception ea){
+                    System.out.print(ea.getMessage());
+                  }
+                  return shape;
+                }
+                return shape;
+              }).collect(Collectors.toList()));
+      canvas.repaint();
+    }
   }
 
   @Override

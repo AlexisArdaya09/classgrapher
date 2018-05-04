@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LogicBoard implements Serializable, Originator {
   private static final int SELECTED_SHAPE_BORDER_COLOR = -16776961;
@@ -46,6 +48,34 @@ public class LogicBoard implements Serializable, Originator {
           this.selectedShape.setBorderColor(BLACK_BORDER_COLOR);
       }
       this.selectedShape = null;
+  }
+
+  public void removeSelectedShape(){
+    this.shapes.remove(this.selectedShape);
+    this.unSelectShape();
+  }
+
+  public void removeConnectorsFromSelectedShape(){
+    if (this.selectedShape !=null){
+      removeConnectorFormClassA();
+      removeConnectorFromClassB();
+   }
+  }
+
+  private void removeConnectorFromClassB() {
+    List<Connector> connectors_to_be_deleted2 = this.connectors.stream().filter(connector -> connector.getClassB().equals(this.selectedShape)).collect(Collectors.toList());
+    connectors_to_be_deleted2.forEach(connector -> {
+      this.shapes.remove(connector.getRelation());
+      this.connectors.remove(connector);
+    });
+  }
+
+  private void removeConnectorFormClassA() {
+    List<Connector> connectors_to_be_deleted = this.connectors.stream().filter(connector -> connector.getClassA().equals(this.selectedShape)).collect(Collectors.toList());
+    connectors_to_be_deleted.forEach(connector -> {
+      this.shapes.remove(connector.getRelation());
+      this.connectors.remove(connector);
+    });
   }
 
   @Override

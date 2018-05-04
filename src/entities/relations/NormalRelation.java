@@ -23,7 +23,13 @@ public class NormalRelation extends Relation implements Shape {
 
   @Override
   public void draw(Graphics graphics) {
+    graphics.setColor(new Color(this.borderColor));
     graphics.drawLine(pointOne.x, pointOne.y, pointTwo.x, pointTwo.y);
+  }
+
+  @Override
+  public void setBorderColor(Integer newColor) {
+    this.borderColor = newColor;
   }
 
   @Override

@@ -25,16 +25,21 @@ class CompositionRelation extends Relation implements Shape {
     Point point3 = calculatePointsArrow(point1, getAngle() - Math.toRadians(-ARROW_ANGLE));
 
     Polygon polygon = new Polygon();
-    graphics.setColor(Color.white);
+    graphics.setColor(Color.black);
     polygon.addPoint(pointTwo.x, pointTwo.y);
     polygon.addPoint(point1.x, point1.y);
     polygon.addPoint(point3.x, point3.y);
     polygon.addPoint(point2.x, point2.y);
     graphics.fillPolygon(polygon);
-    graphics.setColor(Color.BLACK);
+    graphics.setColor(new Color(this.borderColor));
   }
 
-  @Override
+    @Override
+    public void setBorderColor(Integer newColor) {
+      this.borderColor = newColor;
+    }
+
+    @Override
   public Optional<Shape> getShapeInCoordinate(Point point) {
     return Optional.empty();
   }

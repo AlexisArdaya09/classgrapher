@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class Canvas extends JPanel implements Serializable {
   public LogicBoard logicBoard;
-  java.awt.Point startingPoint, endPoint;
+  private java.awt.Point startingPoint, endPoint;
 
   private CareTaker careTaker = new CareTaker();
 
@@ -34,7 +34,7 @@ public class Canvas extends JPanel implements Serializable {
     Dimension dimension = this.getSize();
     graphics = prepareGraphics(graphics, dimension);
     paintShapes(graphics);
-    paintConectors(graphics);
+    paintConnectors(graphics);
     paintFollowerLine(graphics);
   }
 
@@ -98,7 +98,7 @@ public class Canvas extends JPanel implements Serializable {
     logicBoard.shapes.forEach(shape -> shape.draw(graphics));
   }
 
-  private void paintConectors(Graphics graphics) {
+  private void paintConnectors(Graphics graphics) {
     logicBoard.connectors.forEach(connector -> {
       BaseClass baseClassA = getBaseClassA(connector);
       BaseClass baseClassB = getBaseClassB(connector);

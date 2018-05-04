@@ -7,7 +7,7 @@ import core.Shape;
 
 public class AbstractClass extends BaseClass implements Shape {
 
-  public AbstractClass(String title, Point pointOne) {
+  AbstractClass(String title, Point pointOne) {
     this.title = title;
     this.pointOne = pointOne;
     this.pointTwo = new Point(pointOne.x + DEFAULT_WIDTH, pointOne.y + DEFAULT_HIGH);
@@ -27,7 +27,7 @@ public class AbstractClass extends BaseClass implements Shape {
 
     graphics.setColor(Color.white);
     graphics.fillRect(x, y, w, h);
-    graphics.setColor(Color.black);
+    graphics.setColor(new Color(this.borderColor));
     graphics.drawRect(x, y, w, h);
     graphics.drawString(title,
         x + (w / 2) - 40,
@@ -40,11 +40,16 @@ public class AbstractClass extends BaseClass implements Shape {
 
     graphics.setColor(Color.white);
     graphics.fillRect(x, y, w, h);
-    graphics.setColor(Color.black);
+    graphics.setColor(new Color(this.borderColor));
     graphics.drawRect(x, y, w, h);
     graphics.drawString("A",
         x + (w / 2) - 3,
         y + (h / 2) + 5);
+  }
+
+  @Override
+  public void setBorderColor(Integer newColor) {
+    this.borderColor = newColor;
   }
 
   @Override

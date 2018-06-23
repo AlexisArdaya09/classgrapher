@@ -30,6 +30,16 @@ public class LogicBoardTest {
     }
 
     @Test
+    public void testIfSelectShape() {
+        Point point = new Point(0,0);
+        NormalClass classA = new NormalClass("main", new Point(0,0), new Point(20,20));
+        LogicBoard logicBoard = new LogicBoard();
+        logicBoard.shapes.add(classA);
+        logicBoard.selectShape(point);
+        assertNotNull(logicBoard.getSelectedShape());
+    }
+
+    @Test
     public void unSelectShape() {
     }
 

@@ -22,7 +22,11 @@ public class LogicBoardTest {
     }
 
     @Test
-    public void selectShape() {
+    public void testNoneSelectShape() {
+        Point point = new Point(15,35);
+        LogicBoard logicBoard = new LogicBoard();
+        logicBoard.selectShape(point);
+        assertNull("No deberia existir una figura en lienzo vacio",logicBoard.getSelectedShape());
     }
 
     @Test

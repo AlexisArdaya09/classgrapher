@@ -17,6 +17,11 @@ public class LogicBoard implements Serializable, Originator {
   private static final int BLACK_BORDER_COLOR = -16777216;
   public List<Connector> connectors = new ArrayList<>(0);
   public List<Shape> shapes = new ArrayList<>(0);
+
+  public Shape getSelectedShape() {
+    return selectedShape;
+  }
+
   private Shape selectedShape;
   public Tool currentTool = Tool.ANY;
   private Stack<Shape> deletedShapes = new Stack<>();

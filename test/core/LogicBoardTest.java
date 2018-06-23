@@ -40,7 +40,10 @@ public class LogicBoardTest {
     }
 
     @Test
-    public void unSelectShape() {
+    public void testUnSelectShape() {
+        LogicBoard logicBoard = new LogicBoard();
+        logicBoard.unSelectShape();
+        assertNull("No deberia existir una figura seleccionada",logicBoard.getSelectedShape());
     }
 
     @Test

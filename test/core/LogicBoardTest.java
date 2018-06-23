@@ -1,6 +1,9 @@
 package core;
 
+import core.exception.CanNotBeCreatedException;
 import core.exception.ConnectorException;
+import entities.classes.AbstractClass;
+import entities.classes.BaseClass;
 import entities.classes.NormalClass;
 import entities.relations.NormalRelation;
 import org.junit.Test;
@@ -60,5 +63,15 @@ public class LogicBoardTest {
         logicBoard.selectShape(new Point(1,1));
         logicBoard.removeConnectorsFromSelectedShape();
         assertEquals(0,logicBoard.connectors.size());
+    }
+
+    @Test
+    public void testAdditionOfAbstractClass() throws CanNotBeCreatedException {
+        LogicBoard logicBoard = new LogicBoard();
+        logicBoard.currentTool = Tool.ABSTRACT_CLASS;
+        Point point = new Point(20,20);
+        Shape newShape = (Shape) BaseClass.getNewBaseClass(logicBoard.currentTool, "", point);
+        logicBoard.shapes.add(newShape);
+        assertEquals("entities.classes.AbstractClass",logicBoard.getShape(point).get().getClass().getName());
     }
 }

@@ -84,4 +84,13 @@ public class LogicBoardTest {
         assertEquals("entities.classes.NormalClass", logicBoard.getShape(point).get().getClass().getName());
     }
 
+    @Test
+    public void testAdditionOfInterfaceClass() throws CanNotBeCreatedException {
+        LogicBoard logicBoard = new LogicBoard();
+        logicBoard.currentTool = Tool.INTERFACE_CLASS;
+        Point point = new Point(20, 20);
+        Shape newShape = (Shape) BaseClass.getNewBaseClass(logicBoard.currentTool, "", point);
+        logicBoard.shapes.add(newShape);
+        assertEquals("entities.classes.InterfaceClass", logicBoard.getShape(point).get().getClass().getName());
+    }
 }

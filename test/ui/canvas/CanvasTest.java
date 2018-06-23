@@ -21,6 +21,14 @@ public class CanvasTest {
     }
 
     @Test
-    public void redo() {
+    public void testRedo() {
+        NormalClass classA = new NormalClass("main", new Point(0, 0), new Point(20, 20));
+        LogicBoard logicBoard = new LogicBoard();
+        Canvas canvas = new Canvas(logicBoard);
+        logicBoard.shapes.add(classA);
+        canvas.addMemento();
+        canvas.undo();
+        canvas.redo();
+        assertEquals(1, logicBoard.shapes.size());
     }
 }

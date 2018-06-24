@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class ConnectorExceptionTest {
   @Test
-  public void createGoodConectorTest() throws ConnectorException {
+  public void testCreateGoodConectorTest() throws ConnectorException {
     NormalClass classA = new NormalClass("main", new Point(0,0), new Point(20,20));
 
     NormalClass classB = new NormalClass("two", new Point(30,30), new Point(50,50));
@@ -19,7 +19,7 @@ public class ConnectorExceptionTest {
   }
 
   @Test(expected = ConnectorException.class)
-  public void createBadConectorTest() throws ConnectorException {
+  public void testCreateBadConectorTest() throws ConnectorException {
     NormalClass classA = new NormalClass("main", new Point(0,0), new Point(20,20));
     NormalRelation normalRelation = new NormalRelation(new Point(20,20), new Point(30,30));
     Connector connector = new Connector(classA, null, normalRelation);

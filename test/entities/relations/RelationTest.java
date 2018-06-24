@@ -13,6 +13,12 @@ public class RelationTest {
   }
 
   @Test
+  public void testGetNewCompositionRelation() throws CanNotBeCreatedException {
+    Assert.assertEquals(true, Relation.getNewRelation(Tool.COMPOSITION_RELATION)
+            .getClass().equals(CompositionRelation.class));
+  }
+
+  @Test
   public void getNewNormalRelation() throws CanNotBeCreatedException {
     Assert.assertEquals(true, Relation.getNewRelation(Tool.RELATION)
         .getClass().equals(NormalRelation.class));

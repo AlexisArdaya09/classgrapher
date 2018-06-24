@@ -7,6 +7,12 @@ import org.junit.Test;
 
 public class RelationTest {
   @Test
+  public void testGetNewAgregationRelation() throws CanNotBeCreatedException {
+    Assert.assertEquals(true, Relation.getNewRelation(Tool.AGGREGATION_RELATION)
+            .getClass().equals(AggregationRelation.class));
+  }
+
+  @Test
   public void getNewNormalRelation() throws CanNotBeCreatedException {
     Assert.assertEquals(true, Relation.getNewRelation(Tool.RELATION)
         .getClass().equals(NormalRelation.class));

@@ -93,4 +93,14 @@ public class LogicBoardTest {
         logicBoard.shapes.add(newShape);
         assertEquals("entities.classes.InterfaceClass", logicBoard.getShape(point).get().getClass().getName());
     }
+
+    @Test
+    public void testRemoveSelectedShape() {
+        NormalClass classA = new NormalClass("main", new Point(0, 0), new Point(20, 20));
+        LogicBoard logicBoard = new LogicBoard();
+        logicBoard.shapes.add(classA);
+        logicBoard.selectShape(new Point(1, 1));
+        logicBoard.removeSelectedShape();
+        assertEquals(0, logicBoard.shapes.size());
+    }
 }

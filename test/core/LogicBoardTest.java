@@ -103,4 +103,20 @@ public class LogicBoardTest {
         logicBoard.removeSelectedShape();
         assertEquals(0, logicBoard.shapes.size());
     }
+
+    @Test
+    public void testClean() throws ConnectorException {
+        NormalClass classA = new NormalClass("main", new Point(0, 0), new Point(20, 20));
+
+        NormalClass classB = new NormalClass("two", new Point(30, 30), new Point(50, 50));
+        NormalRelation normalRelation = new NormalRelation(new Point(20, 20), new Point(30, 30));
+        Connector connector = new Connector(classA, classB, normalRelation);
+        LogicBoard logicBoard = new LogicBoard();
+        logicBoard.shapes.add(classA);
+        logicBoard.shapes.add(classB);
+        logicBoard.addConnector(connector);
+        logicBoard.clean();
+        assertEquals(0, logicBoard.shapes.size());
+        assertEquals(0, logicBoard.connectors.size());
+    }
 }

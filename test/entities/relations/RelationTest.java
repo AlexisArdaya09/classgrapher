@@ -7,25 +7,37 @@ import org.junit.Test;
 
 public class RelationTest {
   @Test
-  public void getNewNormalRelation() throws CanNotBeCreatedException {
+  public void testGetNewAgregationRelation() throws CanNotBeCreatedException {
+    Assert.assertEquals(true, Relation.getNewRelation(Tool.AGGREGATION_RELATION)
+            .getClass().equals(AggregationRelation.class));
+  }
+
+  @Test
+  public void testGetNewCompositionRelation() throws CanNotBeCreatedException {
+    Assert.assertEquals(true, Relation.getNewRelation(Tool.COMPOSITION_RELATION)
+            .getClass().equals(CompositionRelation.class));
+  }
+
+  @Test
+  public void testGetNewNormalRelation() throws CanNotBeCreatedException {
     Assert.assertEquals(true, Relation.getNewRelation(Tool.RELATION)
         .getClass().equals(NormalRelation.class));
   }
 
   @Test
-  public void getNewInheritRelation() throws CanNotBeCreatedException {
+  public void testGetNewInheritRelation() throws CanNotBeCreatedException {
     Assert.assertEquals(true, Relation.getNewRelation(Tool.INHERIT_RELATION)
         .getClass().equals(InheritRelation.class));
   }
 
   @Test
-  public void getNewInterfaceRelation() throws CanNotBeCreatedException {
+  public void testGetNewInterfaceRelation() throws CanNotBeCreatedException {
     Assert.assertEquals(true, Relation.getNewRelation(Tool.INTERFACE_RELATION)
         .getClass().equals(InterfaceRelation.class));
   }
 
   @Test(expected = CanNotBeCreatedException.class)
-  public void getBadNewRelation() throws CanNotBeCreatedException {
+  public void testGetBadNewRelation() throws CanNotBeCreatedException {
     Assert.assertEquals(true, Relation.getNewRelation(Tool.CLASS)
         .getClass().equals(Relation.class));
   }
